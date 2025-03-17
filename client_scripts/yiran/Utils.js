@@ -1,7 +1,3 @@
-let $Screen = Java.loadClass("net.minecraft.client.gui.screens.Screen")
-let $ScreenEvent$Init$Pre = Java.loadClass("net.minecraftforge.client.event.ScreenEvent$Init$Pre")
-let $ScreenEvent$Render$Post = Java.loadClass("net.minecraftforge.client.event.ScreenEvent$Render$Post")
-let $Button = Java.loadClass('net.minecraft.client.gui.components.Button')
 
 global.createNewScreen = (screen,id, name) =>
     new JavaAdapter(

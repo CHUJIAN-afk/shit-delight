@@ -1,8 +1,3 @@
-
-PlayerEvents.tick(event => {
-    event.player.setStatusMessage(time)
-})
-
 /*
 ItemEvents.rightClicked(event => {
     Ingredient.all.getItemIds().forEach(item => {

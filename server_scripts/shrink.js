@@ -1,5 +1,11 @@
 let time = 0
 PlayerEvents.tick(event => {
+  event.player.setStatusMessage(time)
+})
+
+// 应该是根据食物属性计算消耗时间
+// 后续会取消末影箱用作胃袋的功能 自己创建一个胃袋gui
+PlayerEvents.tick(event => {
     if (event.player.age % 20 === 0) {
         let item = event.player.enderChestInventory.getAllItems()
         time += Math.floor((PPSZG + PJFZS + PXHRL + PSLMY + PJHXY + PXKHX) * (100 - FXSX * 1.5) / 100)
