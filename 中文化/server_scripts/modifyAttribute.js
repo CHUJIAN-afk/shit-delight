@@ -187,6 +187,13 @@ PlayerEvents.tick(event => {
                 "attributeslib:experience_gained"
             ]
         };
+
+                for (let 属性集 in 属性配置) {
+            for (let 属性 of 属性配置[属性集]) {
+                player.modifyAttribute(属性, "胃", 属性集/**属性集此处为数组，但应该为同名数字变量 */, "multiply_base")
+            }
+        }
+                /*
         属性配置.恢复类属性.forEach(属性 => {
             player.modifyAttribute(属性, "胃", 恢复类属性, "multiply_base")
         })
@@ -205,7 +212,7 @@ PlayerEvents.tick(event => {
         属性配置.防御类属性.forEach(属性 => {
             player.modifyAttribute(属性, "胃", 防御类属性, "multiply_base")
         })
-
+*/
 
         player.modifyAttribute("forge:block_reach", "胃", 采掘类属性 * 0.07, "multiply_base")
         player.modifyAttribute("forge:entity_reach", "胃", 采掘类属性 * 0.09, "multiply_base")
