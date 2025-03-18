@@ -1,4 +1,6 @@
-﻿// 允许使用的物品（白名单）
+﻿let $ArmorItem = Java.loadClass("net.minecraft.world.item.ArmorItem")
+
+// 允许使用的物品（白名单）
 let allowUseItem = [
   "farmersdelight:diamond_knife",
   "farmersdelight:netherite_knife",
@@ -14,6 +16,14 @@ let allowUseItem = [
   "ends_delight:end_stone_knife",
   "ends_delight:dragon_egg_shell_knife",
   "ends_delight:purpur_knife",
+
+  // 锄头
+  'minecraft:wooden_hoe',
+  'minecraft:stone_hoe',
+  'minecraft:iron_hoe',
+  'minecraft:golden_hoe',
+  'minecraft:diamond_hoe',
+  'minecraft:netherite_hoe',
 
   // 鱼竿 打火石 剪刀 刷子
   'minecraft:fishing_rod',
