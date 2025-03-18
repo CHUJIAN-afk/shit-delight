@@ -20,17 +20,3 @@ if(false)
 ItemEvents.firstLeftClicked(e => {
     Client.setScreen(global.createNewScreen(null, 101, 'test'))
 })
-
-NativeEvents.onEvent($ScreenEvent$Init$Pre, e => {
-    e.screen.addRenderableWidget(
-        $Button.builder(
-            Component.of('test'),
-            () => {
-                Client.tell(e.screen)
-                Client.setScreen(global.createNewScreen(e.screen, 101, 'test'))
-            }
-        )
-            .bounds(0, 0, 100, 20)
-            .build()
-    )
-})
