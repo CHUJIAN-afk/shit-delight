@@ -1,17 +1,17 @@
 
 EntityEvents.hurt(event => {
     let entity = event.entity
-    let VA = Math.floor((PPSZG + PJFZS + PXHRL + PSLMY + PJHXY + PXKHX) * (100 - FXSX * 1.5) / 100)
+    let 消化基础值 = Math.floor((磐石之根总值 + 风之轻语总值 + 星火熔炉总值 + 森灵秘语总值 + 匠魂飨宴总值 + 虚空遗尘总值) * (100 - 腐嗅噬心总值 * 1.5) / 100)
     if (entity && entity.isPlayer()) {
-        let damageValue = event.damage
-        if (damageValue !== 0) {
-            time += Math.floor(damageValue * VA)
+        let 受到伤害量 = event.damage
+        if (受到伤害量 !== 0) {
+            消化进度 += Math.floor(受到伤害量 * 消化基础值)
         }
     }
     if (event.source.actual && event.source.actual.isPlayer()) {
-        let damageValue = event.damage
-        if (damageValue !== 0) {
-            time += Math.floor(damageValue * VA * 0.1)
+        let 造成伤害 = event.damage
+        if (造成伤害 !== 0) {
+            消化进度 += Math.floor(造成伤害 * 消化基础值 * 0.1)
         }
     }
 });
