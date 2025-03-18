@@ -10,18 +10,18 @@ ItemEvents.rightClicked(event => {
         (() => {
             const lines = [
                 "==便携性胃镜==",
-                addIfNonZero("", "每分钟消化数", Math.floor(6000 / (30000 / ((PPSZG + PJFZS + PXHRL + PSLMY + PJHXY + PXKHX) * (100 - FXSX*1.5) / 100))) / 100),
-                addIfNonZero("§8", "磐石之根", PPSZG),
-                addIfNonZero("§b", "风之轻语", PJFZS),
-                addIfNonZero("§c", "星火熔炉", PXHRL),
-                addIfNonZero("§2", "森灵秘语", PSLMY),
-                addIfNonZero("§6", "匠魂飨宴", PJHXY),
-                addIfNonZero("§5", "虚空遗尘", PXKHX),
-                addIfNonZero("§a", "果香织梦", PGXZM),
-                addIfNonZero("§4", "莓酿离歌", MNLG),
-                addIfNonZero("§9", "餮魇归一", PTYGY),
-                addIfNonZero("§6", "腐嗅噬心", FXSX),,
-                addIfNonZero("§3", "潜渊共鸣", FSNJ),
+                addIfNonZero("", "每分钟消化数", Math.floor(6000 / (30000 / ((磐石之根总值 + 风之轻语总值 + 星火熔炉总值 + 森灵秘语总值 + 匠魂飨宴总值 + 虚空遗尘总值) * (100 - 腐嗅噬心总值*1.5) / 100))) / 100),
+                addIfNonZero("§8", "磐石之根", 磐石之根总值),
+                addIfNonZero("§b", "风之轻语", 风之轻语总值),
+                addIfNonZero("§c", "星火熔炉", 星火熔炉总值),
+                addIfNonZero("§2", "森灵秘语", 森灵秘语总值),
+                addIfNonZero("§6", "匠魂飨宴", 匠魂飨宴总值),
+                addIfNonZero("§5", "虚空遗尘", 虚空遗尘总值),
+                addIfNonZero("§a", "果香织梦", 果香织梦总值),
+                addIfNonZero("§4", "莓酿离歌", 莓酿离歌总值),
+                addIfNonZero("§9", "餮魇归一", 餮魇归一总值),
+                addIfNonZero("§6", "腐嗅噬心", 腐嗅噬心总值),,
+                addIfNonZero("§3", "潜渊共鸣", 潜渊共鸣总值),
             ];
 
             const filtered = lines.filter(line => line !== null);
