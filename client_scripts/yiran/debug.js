@@ -25,8 +25,8 @@ NativeEvents.onEvent($ScreenEvent$Init$Pre, event => {
             let CW = Client.window.guiScaledWidth/2
             let CH = Client.window.guiScaledHeight/2
         addWidght(screen,0,0,100,20,'屏幕测试',()=>{
-            Client.tell(e.screen)
-            Client.setScreen(global.createNewScreen(e.screen, 101, 'test'))
+            Client.tell(screen)
+            Client.setScreen(global.createNewScreen(screen, 101, 'test'))
         })
         addWidghtWithSize(screen,CW,CH+20,88,20,'kjs reload client',()=>Client.runCommand('kjs reload client_scripts'))
         addWidghtWithSize(screen,CW,CH-20,88,20,'kjs reload server',()=>Client.runCommand('kjs reload server_scripts'))
