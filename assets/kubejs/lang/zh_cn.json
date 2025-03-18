@@ -1,4 +1,8 @@
 {
+    "key.debug_test":"打开测试屏幕",
+    "key.group.debug":"测试功能",
+
+
     "attribute.name.generic.additionalentityattributes.water_speed": "水中移动速度",
     "attribute.name.generic.additionalentityattributes.lava_speed": "熔岩中移动速度",
     "attribute.name.generic.additionalentityattributes.critical_bonus_damage": "暴击伤害加成",
