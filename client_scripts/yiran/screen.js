@@ -15,6 +15,8 @@ NativeEvents.onEvent($ScreenEvent$Render$Post, event => {
         poseStack.popPose()
     }
 })
+
+if(false)
 ItemEvents.firstLeftClicked(e => {
     Client.setScreen(global.createNewScreen(null, 101, 'test'))
 })
