@@ -1,3 +1,4 @@
+let $ScreenEvent$Render$Post = Java.loadClass("net.minecraftforge.client.event.ScreenEvent$Render$Post")
 
 NativeEvents.onEvent($ScreenEvent$Render$Post, event => {
     let { guiGraphics, screen } = event

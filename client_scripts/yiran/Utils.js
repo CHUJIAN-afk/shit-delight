@@ -1,3 +1,4 @@
+let $Screen = Java.loadClass("net.minecraft.client.gui.screens.Screen")
 
 global.createNewScreen = (screen,id, name) =>
     new JavaAdapter(

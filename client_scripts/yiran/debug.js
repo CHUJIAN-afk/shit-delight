@@ -1,3 +1,6 @@
+let $ScreenEvent$Init$Pre = Java.loadClass("net.minecraftforge.client.event.ScreenEvent$Init$Pre")
+let $Button = Java.loadClass('net.minecraft.client.gui.components.Button')
+
 
 let addWidght = (screen, x, y, w, h,  text,action) => {
     screen.addRenderableWidget(

@@ -18,12 +18,12 @@ StartupEvents.registry("item", event => {
 })
 
 
-YiRanEvents.PotionRegister(e => {
-  e.create('yi:testpotion')
+YiRanEvents.PotionRegister(event => {
+  event.create('yi:testpotion')
     .addEffect('fruitsdelight:disgusted', 20 * 60 * 5, 3)
     .addEffect('fruitsdelight:lozenge', 20 * 60 * 5, 3)
-  
-  e.create('ilikethis')
+
+  event.create('ilikethis')
     .addEffect('fruitsdelight:cycling', 20 * 60 * 3, 1)
     .addEffect('attributeslib:flying', 20 * 60 * 3, 1)
 })
