@@ -10,7 +10,7 @@ BlockEvents.broken(event => {
     if(!event.player.isCreative())drops.forEach(item => {
       event.block.popItem(item)
     })
-    time += Math.floor((PPSZG + PJFZS + PXHRL + PSLMY + PJHXY + PXKHX) * (100 - FXSX * 1.5) / 100) * 0.1
+      消化进度 += Math.floor((磐石之根总值 + 风之轻语总值 + 星火熔炉总值 + 森灵秘语总值 + 匠魂飨宴总值 + 虚空遗尘总值) * (100 - 腐嗅噬心总值 * 1.5) / 100) * 0.1
   }
 })
 
