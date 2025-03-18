@@ -1,46 +1,72 @@
 // 畏惧了……
-let initialItems = []
-let BS = 0
-let FY = 0
-let SD = 0
-let GJ = 0
-let HF = 0
-let GY = 0
-let PPSZG = 0
-let PJFZS = 0
-let PXHRL = 0
-let PSLMY = 0
-let PJHXY = 0
-let PXKHX = 0
-let YJ = 0
-let PGXZM = 0
-let MNLG = 0
-let PTYGY = 0
-let FXSX = 0
-let FSNJ = 0
+let 上次胃中物品 = []
+let 生命类属性 = 0
+let 防御类属性 = 0
+let 速度类属性 = 0
+let 攻击类属性 = 0
+let 恢复类属性 = 0
+let 采掘类属性 = 0
+let 磐石之根总值 = 0
+let 风之轻语总值 = 0
+let 星火熔炉总值 = 0
+let 森灵秘语总值 = 0
+let 匠魂飨宴总值 = 0
+let 虚空遗尘总值 = 0
+let 果香织梦总值 = 0
+let 莓酿离歌总值 = 0
+let 上一次莓酿离歌总值 = 0
+let 餮魇归一总值 = 0
+let 腐嗅噬心总值 = 0
+let 潜渊共鸣总值 = 0
+
 //果香织梦
 PlayerEvents.tick(event => {
-    if (PGXZM !== 0 && event.player.age % 20 === 0) {
-        event.player.addFood(PGXZM * 0.5, PGXZM)
+    if (果香织梦总值 !== 0 && event.player.age % 100 === 0) {
+        //恢复饥饿值饱和度
+        event.player.addFood(Math.max(果香织梦总值 * 0.1, 1), Math.max(果香织梦总值 * 0.2, 1))
+        //修复
         let M = event.player.mainHandItem.damageValue
         let O = event.player.offHandItem.damageValue
-        if (M !== 0 && WEA.includes(event.player.mainHandItem.id)) {
-            event.player.mainHandItem.damageValue -= PGXZM
+        if (M !== 0 && 允许列表.includes(event.player.mainHandItem.id)) {
+            event.player.mainHandItem.damageValue -= 果香织梦总值
+            event.player.mainHandItem.damageValue -= 果香织梦总值
         }
-        if (O !== 0 && WEA.includes(event.player.offHandItem.id)) {
-            event.player.offHandItem.damageValue -= PGXZM
+        if (O !== 0 && 允许列表.includes(event.player.offHandItem.id)) {
+            event.player.offHandItem.damageValue -= 果香织梦总值
         }
     }
 })
+let 允许列表 = [
+    "farmersdelight:diamond_knife",
+    "farmersdelight:netherite_knife",
+    "farmersdelight:iron_knife",
+    "farmersdelight:golden_knife",
+    "farmersdelight:skillet",
+    "farmersdelight:flint_knife",
+    "twilightdelight:fiery_knife",
+    "twilightdelight:knightmetal_knife",
+    "twilightdelight:ironwood_knife",
+    "twilightdelight:steeleaf_knife",
+    "ends_delight:dragon_tooth_knife",
+    "ends_delight:end_stone_knife",
+    "ends_delight:dragon_egg_shell_knife",
+    "ends_delight:purpur_knife",
+
+    // 鱼竿 打火石 剪刀 刷子
+    'minecraft:fishing_rod',
+    'minecraft:flint_and_steel',
+    'minecraft:shears',
+    'minecraft:brush'
+]
 //潜渊共鸣
 EntityEvents.hurt(event => {
     let attacker = event.source.getActual();
     if (attacker && attacker.isPlayer()) {
-        if (FSNJ == 0) return
+        if (潜渊共鸣总值 == 0) return
         let { x, y, z } = event.entity
         let entity = event.entity
-        let damage = event.damage * FSNJ * 0.05
-        let R = Math.floor(FSNJ * 0.05) + 1
+        let damage = event.damage * 潜渊共鸣总值 * 0.05//计算伤害
+        let R = Math.floor(潜渊共鸣总值 * 0.05) + 1//计算范围
         let aabb = AABB.of(
             x - R,
             y - R,
@@ -55,11 +81,11 @@ EntityEvents.hurt(event => {
                 if (entity.isPlayer() || !entity.isLiving()) return
                 entity.invulnerableTime = 0
                 entity.attack(damage)
-                time += Math.floor(damage)
+                消化进度 += Math.floor(damage)
                 Utils.server.scheduleInTicks(4, () => {
                     entity.invulnerableTime = 0
                     entity.attack(damage)
-                    time += Math.floor(damage)
+                    消化进度 += Math.floor(damage)
                 })
             })
         })
@@ -67,168 +93,181 @@ EntityEvents.hurt(event => {
 });
 
 PlayerEvents.tick(event => {
-    let item = event.player.enderChestInventory.getAllItems()
-    let currentItems = item.toString()
-    if (currentItems !== initialItems || respawned) {
-        initialItems = currentItems
+    let player = event.player
+    let item = player.enderChestInventory.getAllItems()
+    let 当前胃中物品 = item.toString()
+    //重生登录或胃中食物变动，重新计算属性
+    if (当前胃中物品 !== 上次胃中物品 || respawned) {
+        上次胃中物品 = 当前胃中物品
         respawned = false
-        let player = event.player
-        BS = 0
-        FY = 0
-        SD = 0
-        GJ = 0
-        HF = 0
-        GY = 0
-        MNLG = 0
-        PPSZG = 0
-        PJFZS = 0
-        PXHRL = 0
-        PSLMY = 0
-        PJHXY = 0
-        PXKHX = 0
-        PGXZM = 0
-        PTYGY = 0
-        FXSX = 0
-        FSNJ = 0
+        生命类属性 = 0
+        防御类属性 = 0
+        速度类属性 = 0
+        攻击类属性 = 0
+        恢复类属性 = 0
+        采掘类属性 = 0
+        莓酿离歌总值 = 0
+        磐石之根总值 = 0
+        风之轻语总值 = 0
+        星火熔炉总值 = 0
+        森灵秘语总值 = 0
+        匠魂飨宴总值 = 0
+        虚空遗尘总值 = 0
+        果香织梦总值 = 0
+        餮魇归一总值 = 0
+        腐嗅噬心总值 = 0
+        潜渊共鸣总值 = 0
         item.forEach((item) => {
+            //让胃中堆叠为1
             let count = item.count
             if (count > 1) {
                 item.shrink(count - 1)
                 player.give(Item.of(item, count - 1))
             }
+            //食物属性值计算
             let FM = 0;
             const tags = ["XKHX", "JHXY", "SLMY", "XHRL", "JFZS", "PSZG"];
-
             tags.forEach(tag => {
                 if (item.hasTag(tag)) FM++;
             });
-
-
             let foodProps = item.getFoodProperties(player)
             if (!foodProps) return
-            let nutritionsaturation = Math.floor((foodProps.getNutrition() + foodProps.getSaturationModifier() * 0.5) / Math.max(FM, 1) + 1);
-
+            let 食物营养总价值 = Math.floor((foodProps.getNutrition() + foodProps.getSaturationModifier() * 0.5) / Math.max(FM, 1) + 1);
             //基础性权重分配
             //磐石之根
             if (item.hasTag("PSZG")) {
-                PPSZG += nutritionsaturation
+                磐石之根总值 += 食物营养总价值
             }
             // 疾风之飨
             if (item.hasTag("JFZS")) {
-                PJFZS += nutritionsaturation
+                风之轻语总值 += 食物营养总价值
             }
 
             // 星火熔炉
             if (item.hasTag("XHRL")) {
-                PXHRL += nutritionsaturation
+                星火熔炉总值 += 食物营养总价值
             }
 
             // 森灵秘语
             if (item.hasTag("SLMY")) {
-                PSLMY += nutritionsaturation
+                森灵秘语总值 += 食物营养总价值
             }
 
             // 匠魂飨宴
             if (item.hasTag("JHXY")) {
-                PJHXY += nutritionsaturation
+                匠魂飨宴总值 += 食物营养总价值
             }
-
-            // 虚空秘语
+            // 虚空遗尘
             if (item.hasTag("XKHX")) {
-                PXKHX += nutritionsaturation
+                虚空遗尘总值 += 食物营养总价值
             }
-            //特殊效果计算
             //果香织梦
             if (item.hasTag("GXZM")) {
-                PGXZM += nutritionsaturation
+                果香织梦总值 += 食物营养总价值
             }
             //莓酿离歌
             if (item.hasTag("brewinandchewin:fermented_drinks")) {
-                MNLG += nutritionsaturation
+                莓酿离歌总值 += 食物营养总价值
             }
             //餮魇归一
             if (item.hasTag("TYGY")) {
-                PTYGY += nutritionsaturation
+                餮魇归一总值 += 食物营养总价值
             }
             //腐嗅噬心
             if (item.hasTag("shit")) {
-                FXSX += nutritionsaturation
+                腐嗅噬心总值 += 食物营养总价值
             }
             //潜渊共鸣
             if (item.hasTag("FSNJ")) {
-                FSNJ += nutritionsaturation
+                潜渊共鸣总值 += 食物营养总价值
             }
 
         })
-        /*
-                if (PTYGY !== 0) {
-                    PPSZG *= 1 + PTYGY / 1000
-                    PJFZS *= 1 + PTYGY / 1000
-                    PXHRL *= 1 + PTYGY / 1000
-                    PSLMY *= 1 + PTYGY / 1000
-                    PJHXY *= 1 + PTYGY / 1000
-                    PXKHX *= 1 + PTYGY / 1000
-                }
-        */
-        BS = PPSZG * 0.3 + PJFZS * 0.6 + PXHRL * 0.4 + PSLMY * 0.8 + PJHXY * 0.2 + PXKHX * 1;
-        FY = PPSZG * 0.9 + PJFZS * -0.3 + PXHRL * 0 + PSLMY * 0.2 + PJHXY * 0 + PXKHX * 0.2;
-        SD = PPSZG * -0.2 + PJFZS * 1.2 + PXHRL * -0.8 + PSLMY * 0.1 + PJHXY * 0 + PXKHX * 0.2;
-        GJ = PPSZG * 0.1 + PJFZS * -0.5 + PXHRL * 1.5 + PSLMY * -0.3 + PJHXY * 0.4 + PXKHX * 0.2;
-        HF = PPSZG * 0.4 + PJFZS * 0.2 + PXHRL * 0 + PSLMY * 1.2 + PJHXY * -0.2 + PXKHX * 0.2;
-        GY = PPSZG * 0 + PJFZS * 0 + PXHRL * 0.3 + PSLMY * 0 + PJHXY * 1.1 + PXKHX * 0.2;
+        生命类属性 = 磐石之根总值 * 0.3 + 风之轻语总值 * 0.6 + 星火熔炉总值 * 0.4 + 森灵秘语总值 * 0.8 + 匠魂飨宴总值 * 0.2 + 虚空遗尘总值 * 1;
+        防御类属性 = 磐石之根总值 * 0.9 + 风之轻语总值 * -0.3 + 星火熔炉总值 * 0 + 森灵秘语总值 * 0.2 + 匠魂飨宴总值 * 0 + 虚空遗尘总值 * 0.2;
+        速度类属性 = 磐石之根总值 * -0.2 + 风之轻语总值 * 1.2 + 星火熔炉总值 * -0.8 + 森灵秘语总值 * 0.1 + 匠魂飨宴总值 * 0 + 虚空遗尘总值 * 0.2;
+        攻击类属性 = 磐石之根总值 * 0.1 + 风之轻语总值 * -0.5 + 星火熔炉总值 * 1.5 + 森灵秘语总值 * -0.3 + 匠魂飨宴总值 * 0.4 + 虚空遗尘总值 * 0.2;
+        恢复类属性 = 磐石之根总值 * 0.4 + 风之轻语总值 * 0.2 + 星火熔炉总值 * 0 + 森灵秘语总值 * 1.2 + 匠魂飨宴总值 * -0.2 + 虚空遗尘总值 * 0.2;
+        采掘类属性 = 磐石之根总值 * 0 + 风之轻语总值 * 0 + 星火熔炉总值 * 0.3 + 森灵秘语总值 * 0 + 匠魂飨宴总值 * 1.1 + 虚空遗尘总值 * 0.2;
         //属性加成
-        BS *= 0.02
-        FY *= 0.02
-        SD *= 0.02
-        GJ *= 0.02
-        HF *= 0.02
-        GY *= 0.02
+        生命类属性 *= 0.02
+        防御类属性 *= 0.02
+        速度类属性 *= 0.02
+        攻击类属性 *= 0.02
+        恢复类属性 *= 0.02
+        采掘类属性 *= 0.02
 
-        player.modifyAttribute("minecraft:generic.max_health", "饱食", BS, "multiply_base")
-        player.modifyAttribute("additionalentityattributes:lung_capacity", "饱食", BS, "multiply_base")
-        player.modifyAttribute("additionalentityattributes:dig_speed", "饱食", BS, "multiply_base")
-        player.modifyAttribute("attributeslib:healing_received", "饱食", BS, "multiply_base")
+        let 属性配置 = {
+            生命属性类: [
+                "minecraft:generic.max_health",
+                "additionalentityattributes:lung_capacity",
+                "additionalentityattributes:dig_speed",
+                "attributeslib:healing_received"
+            ],
+            防御属性类: [
+                "minecraft:generic.armor",
+                "minecraft:generic.armor_toughness",
+                "minecraft:generic.knockback_resistance",
+                "attributeslib:prot_pierce",
+                "additionalentityattributes:magic_protection"
+            ],
+            速度属性类: [
+                "minecraft:generic.movement_speed",
+                "additionalentityattributes:water_speed",
+                "additionalentityattributes:lava_speed",
+                "minecraft:generic.flying_speed",
+                "forge:swim_speed"
+            ],
+            攻击属性类: [
+                "minecraft:generic.attack_damage",
+                "minecraft:generic.attack_speed",
+                "attributeslib:crit_chance",
+                "attributeslib:crit_damage",
+                "attributeslib:armor_pierce",
+                "attributeslib:life_steal"
+            ],
+            恢复属性类: [
+                "attributeslib:overheal",
+                "attributeslib:healing_received",
+                "zombie.spawn_reinforcements",
+                "additionalentityattributes:bonus_loot_count_rolls",
+                "minecraft:generic.luck"
+            ],
+            采掘属性类: [
+                "additionalentityattributes:dig_speed",
+                "attributeslib:mining_speed",
+                "additionalentityattributes:bonus_rare_loot_rolls",
+                "attributeslib:experience_gained"
+            ]
+        };
+        //修改玩家属性
+        let 属性集值 = {
+            生命属性类: 生命类属性,
+            防御属性类: 防御类属性,
+            速度属性类: 速度类属性,
+            攻击属性类: 攻击类属性,
+            恢复属性类: 恢复类属性,
+            采掘属性类: 采掘类属性
+        };
 
-        player.modifyAttribute("minecraft:generic.armor", "防御", FY, "multiply_base")
-        player.modifyAttribute("minecraft:generic.armor_toughness", "防御", FY, "multiply_base")
-        player.modifyAttribute("minecraft:generic.knockback_resistance", "防御", FY, "multiply_base")
-        player.modifyAttribute("attributeslib:prot_pierce", "防御", FY, "multiply_base")
-        player.modifyAttribute("additionalentityattributes:magic_protection", "防御", FY, "multiply_base")
-
-
-        player.modifyAttribute("minecraft:generic.movement_speed", "速度", SD, "multiply_base")
-        player.modifyAttribute("additionalentityattributes:water_speed", "速度", SD, "multiply_base")
-        player.modifyAttribute("additionalentityattributes:lava_speed", "速度", SD, "multiply_base")
-        player.modifyAttribute("minecraft:generic.flying_speed", "速度", SD, "multiply_base")
-        player.modifyAttribute("forge:swim_speed", "速度", SD, "multiply_base")
-
-        player.modifyAttribute("minecraft:generic.attack_damage", "攻击", GJ, "multiply_base")
-        player.modifyAttribute("minecraft:generic.attack_speed", "攻击", GJ, "multiply_base")
-        player.modifyAttribute("attributeslib:crit_chance", "攻击", GJ, "multiply_base")
-        player.modifyAttribute("attributeslib:crit_damage", "攻击", GJ, "multiply_base")
-        player.modifyAttribute("attributeslib:armor_pierce", "攻击", GJ, "multiply_base")
-        player.modifyAttribute("attributeslib:life_steal", "攻击", GJ, "multiply_base")
-
-        player.modifyAttribute("attributeslib:overheal", "恢复", HF, "multiply_base")
-        player.modifyAttribute("attributeslib:healing_received", "恢复", HF, "multiply_base")
-        player.modifyAttribute("zombie.spawn_reinforcements", "恢复", HF, "multiply_base")
-        player.modifyAttribute("additionalentityattributes:bonus_loot_count_rolls", "恢复", HF, "multiply_base")
-        player.modifyAttribute("minecraft:generic.luck", "恢复", HF, "multiply_base")
-
-        player.modifyAttribute("additionalentityattributes:dig_speed", "工艺", GY, "multiply_base")
-        player.modifyAttribute("attributeslib:mining_speed", "工艺", GY, "multiply_base")
-        player.modifyAttribute("additionalentityattributes:bonus_rare_loot_rolls", "工艺", GY, "multiply_base")
-        player.modifyAttribute("attributeslib:experience_gained", "工艺", GY, "multiply_base")
-        player.modifyAttribute("forge:block_reach", "工艺", GY * 0.07, "multiply_base")
-        player.modifyAttribute("forge:entity_reach", "工艺", GY * 0.09, "multiply_base")
-        if (MNLG == 0 && PMNLG > 0 || MNLG > 0 && PMNLG == 0) {
-            player.modifyAttribute("attributeslib:creative_flight", "莓酿离歌", MNLG * 0.01, "addition")
-            PMNLG = MNLG
+        for (let 属性集 in 属性配置) {
+            for (let 属性 of 属性配置[属性集]) {
+                player.modifyAttribute(属性, "胃", 属性集值[属性集], "multiply_base");
+            }
         }
+
+        player.modifyAttribute("forge:block_reach", "胃", 采掘类属性 * 0.07, "multiply_base")
+        player.modifyAttribute("forge:entity_reach", "胃", 采掘类属性 * 0.09, "multiply_base")
+
+        //确保玩家在空中时属性变动不会坠机
+        if (莓酿离歌总值 == 0 && 上一次莓酿离歌总值 > 0 || 莓酿离歌总值 > 0 && 上一次莓酿离歌总值 == 0) {
+            player.modifyAttribute("attributeslib:creative_flight", "莓酿离歌", 莓酿离歌总值 * 0.01, "addition")
+            上一次莓酿离歌总值 = 莓酿离歌总值
+        }
+
     }
 })
-let PMNLG = 0
-const attributes = [
+const 初始化属性表 = [
     "minecraft:generic.attack_knockback",
     "additionalentityattributes:lung_capacity",
     "additionalentityattributes:dig_speed",
@@ -239,17 +278,17 @@ const attributes = [
     "attributeslib:overheal",
     "attributeslib:prot_pierce"
 ];
-
+//在重生和登录时使用，为玩家提供可以被加成的基础数值，同时检测一次玩家的胃
 let respawned = false
 PlayerEvents.respawned(event => {
-    CHAN(event)
+    初始化属性(event)
 })
 PlayerEvents.loggedIn(event => {
-    CHAN(event)
+    初始化属性(event)
 })
 
-function CHAN(event) {
-    attributes.forEach(attribute => {
+function 初始化属性(event) {
+    初始化属性表.forEach(attribute => {
         event.player.modifyAttribute(attribute, "基础值", 0.05, "addition");
     });
     event.player.modifyAttribute("attributeslib:prot_pierce", "基础值", 4, "addition");
