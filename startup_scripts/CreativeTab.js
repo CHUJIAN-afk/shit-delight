@@ -11,7 +11,8 @@ const tabConfigs = [
     { suffix: 'PSZG', tag: '#minecraft:PSZG', displayKey: '磐石之根' },
     { suffix: 'FSSX', tag: '#minecraft:shit', displayKey: '腐嗅噬心' },
     { suffix: 'XHRL', tag: '#minecraft:XHRL', displayKey: '星火熔炉' },
-    { suffix: 'TYGY', tag: '#minecraft:TYGY', displayKey: '餮魇归一' }
+    { suffix: 'TYGY', tag: '#minecraft:TYGY', displayKey: '餮魇归一' },
+    { suffix: 'YHKZ', tag: '#minecraft:YHKZ', displayKey: '腌痕铠胄' }
 ];
 
 StartupEvents.registry('creative_mode_tab', event => {
