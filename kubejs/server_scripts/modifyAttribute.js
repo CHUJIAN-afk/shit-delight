@@ -229,8 +229,8 @@ PlayerEvents.tick(event => {
     let 属性配置 = {
       生命属性类: [
         "minecraft:generic.max_health",
-        "additionalentityattributes:lung_capacity",
-        "additionalentityattributes:dig_speed",
+        // "additionalentityattributes:lung_capacity",
+        // "additionalentityattributes:dig_speed",
         "attributeslib:healing_received"
       ],
       防御属性类: [
@@ -238,12 +238,12 @@ PlayerEvents.tick(event => {
         "minecraft:generic.armor_toughness",
         "minecraft:generic.knockback_resistance",
         "attributeslib:prot_pierce",
-        "additionalentityattributes:magic_protection"
+        // "additionalentityattributes:magic_protection"
       ],
       速度属性类: [
         "minecraft:generic.movement_speed",
-        "additionalentityattributes:water_speed",
-        "additionalentityattributes:lava_speed",
+        // "additionalentityattributes:water_speed",
+        // "additionalentityattributes:lava_speed",
         "minecraft:generic.flying_speed",
         "forge:swim_speed"
       ],
@@ -259,13 +259,13 @@ PlayerEvents.tick(event => {
         "attributeslib:overheal",
         "attributeslib:healing_received",
         "zombie.spawn_reinforcements",
-        "additionalentityattributes:bonus_loot_count_rolls",
+        // "additionalentityattributes:bonus_loot_count_rolls",
         "minecraft:generic.luck"
       ],
       采掘属性类: [
-        "additionalentityattributes:dig_speed",
+        // "additionalentityattributes:dig_speed",
         "attributeslib:mining_speed",
-        "additionalentityattributes:bonus_rare_loot_rolls",
+        // "additionalentityattributes:bonus_rare_loot_rolls",
         "attributeslib:experience_gained"
       ]
     };
