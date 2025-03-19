@@ -1,4 +1,4 @@
-- [ ] [RenderJs](https://www.mcmod.cn/class/15045.html)// 后续若有物品装饰条的渲染会需要这个mod
+// 使用mcmod的类型分别
 ## 前置
 - [x]  [Architectury API](https://www.mcmod.cn/class/3434.html)
 - [x] [犀牛 (Rhino)](https://www.mcmod.cn/class/3821.html)
@@ -8,7 +8,8 @@
 - [x] [L2 Library](https://www.mcmod.cn/class/7075.html)// 添加，完成整合包后会隐藏神化属性的显示，以l2lib显示为主
 - [ ] [Additional Entity Attributes (Forge)](https://www.mcmod.cn/class/16254.html)// 暂时不添加，注意！这是modrinth的mod
 - [x] [Placebo](https://www.mcmod.cn/class/1023.html)
-- [x] [Apothic Attributes (AttributesLib)](https://www.mcmod.cn/class/12036.html)
+- [x] [Apothic Attributes (AttributesLib)](https://www.mcmod.cn/class/12036.html)// 神化的属性显示，AEA的属性之后将会被舍弃
+- [x] [Curios API](https://www.mcmod.cn/class/2029.html)// 添加
 ## 冒险
 - [x] [暮色森林 (The Twilight Forest)](https://www.mcmod.cn/class/61.html)
 
@@ -24,7 +25,9 @@
 - [x] [My Nether's Delight](https://www.mcmod.cn/class/14698.html)
 - [x] [末地乐事 (End's Delight)](https://www.mcmod.cn/class/6298.html)
 - [x] [暮色风味乐事 (Twilight's Flavors & Delight)](https://www.mcmod.cn/class/10610.html)
+- [x] [腌渍乐事 (Vintage Delight)](https://www.mcmod.cn/class/13101.html)
 ## 实用
+- [x] [提升戒指 (Rings of Ascension)](https://www.mcmod.cn/class/8577.html)// 临时添加看看效果，后续考虑使用powerfuljs制作戒指饰品
 ## 装饰
 ## 辅助
 - [x] [JEI物品管理器 (Just Enough Items)](https://www.mcmod.cn/class/459.html)
@@ -47,3 +50,4 @@
 - [x] [EventJS](https://www.mcmod.cn/class/17008.html) // 添加
 - [x] [KeyBindJS](https://www.mcmod.cn/class/18686.html)// 添加
 - [x] [绷带 (Hotai)](https://www.mcmod.cn/class/13571.html)// 添加
+- [x] [RenderJS](https://www.mcmod.cn/class/15045.html)// 后续若有物品装饰条的渲染会需要这个mod

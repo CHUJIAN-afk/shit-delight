@@ -11,3 +11,9 @@ rhino.local.properties
 usercache.json
 *.gita
 usernamecache.json
+大胃王模拟器.jar
+大胃王模拟器.json
+/config
+log4j2.xml
+/natives-windows-x86_64
+/.obsidian
