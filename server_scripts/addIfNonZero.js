@@ -20,8 +20,9 @@ ItemEvents.rightClicked(event => {
                 addIfNonZero("§a", "果香织梦", 果香织梦总值),
                 addIfNonZero("§4", "莓酿离歌", 莓酿离歌总值),
                 addIfNonZero("§9", "餮魇归一", 餮魇归一总值),
-                addIfNonZero("§6", "腐嗅噬心", 腐嗅噬心总值),,
+                addIfNonZero("§6", "腐嗅噬心", 腐嗅噬心总值),
                 addIfNonZero("§3", "潜渊共鸣", 潜渊共鸣总值),
+                addIfNonZero("§7", "腌痕铠胄", 腌痕铠胄总值),
             ];
 
             const filtered = lines.filter(line => line !== null);
