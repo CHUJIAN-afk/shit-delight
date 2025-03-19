@@ -11,7 +11,8 @@ ItemEvents.tooltip(event => {
             { tag: 'PSZG', color: '§8', name: '磐石之根', counts: true },
             { tag: 'TYGY', color: '§9', name: '餮魇归一', counts: false },
             { tag: 'shit', color: '§6', name: '腐嗅噬心', counts: false },
-            { tag: 'FSNJ', color: '§3', name: '潜渊共鸣', counts: false }
+            { tag: 'FSNJ', color: '§3', name: '潜渊共鸣', counts: false },
+            { tag: 'YHKZ', color: '§7', name: '腌痕铠胄', counts: false }
         ];
         let itemStack = Item.of(itemId);
         if (!itemStack.edible) return;
@@ -37,6 +38,7 @@ ItemEvents.tooltip(event => {
                     '餮魇归一': 1,
                     '腐嗅噬心': 1,
                     '潜渊共鸣': 1,
+                    '腌痕铠胄': 1,
                     '虚空遗尘': Math.exp(饥饿值 * 饱和度 * 0.05),
                     '匠魂飨宴': ((饥饿值 / (饱和度 + 1)) + Math.sqrt(饥饿值 + 饱和度)) / 9,
                     '森灵秘语': Math.log(饥饿值 + 1) * (饱和度 + 0.3) / 1.5,
