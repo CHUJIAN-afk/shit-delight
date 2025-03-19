@@ -19,3 +19,5 @@ log4j2.xml
 /.obsidian
 .abnormal
 /XaeroWaypoints_BACKUP240807
+mods/.index
+*ModernUI*

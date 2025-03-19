@@ -43,6 +43,11 @@ ItemEvents.rightClicked(event => {
 })
 
 
+NetworkEvents.dataReceived('openStomachMenu',event=>{
+  PlayerUtils.openStomachGui(event.player)
+})
+
+
 const CustomEvent = {}
 const CustomEvent$Handler = []
 /**
