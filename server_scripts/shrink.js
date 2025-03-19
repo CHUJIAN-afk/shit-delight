@@ -13,12 +13,22 @@ PlayerEvents.tick(event => {
         if (30000 < 消化进度) {
             消化进度 -= 30000
             消化进度 = Math.floor(消化进度)
+            //先拉出所有屎再消化其他食物
+            item.forEach(shit => {
+                if (shit.id == "kubejs:shit") {
+                    if (Math.random() < 0.5) {
+                        event.player.block.popItem("kubejs:shit")
+                    }
+                    shit.shrink(1)
+                }
+            })
             //随机选择物品进行消耗
             let randomIndex = Math.floor(Math.random() * item.length)
             let selectedItem = item[randomIndex]
-            if (selectedItem.count > 0) {
-                let name = selectedItem.getDisplayName()
-                event.player.setStatusMessage(name)
+            if (item.length && selectedItem.count > 0) {
+                if (selectedItem.id == "kubejs:shit") {
+                    消化进度 += 30000
+                }
                 selectedItem.shrink(1)
                 //原地拉屎并发出音效
                 event.player.block.popItem("kubejs:shit")
