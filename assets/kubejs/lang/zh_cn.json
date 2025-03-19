@@ -1,7 +1,18 @@
 {
     "key.debug_test":"打开测试屏幕",
     "key.group.debug":"测试功能",
-    "shit.delight.QYGM":"§9潜渊共鸣",
+    "shit.delight.QYGM": "§3潜渊共鸣",
+    "shit.delight.BZQY": "§4莓酿离歌",
+    "shit.delight.GXZM": "§a果香织梦",
+    "shit.delight.XKHX": "§5虚空遗尘",
+    "shit.delight.JHXY": "§6匠魂飨宴", 
+    "shit.delight.SLMY": "§2森灵秘语",
+    "shit.delight.FZQY": "§b风之轻语",
+    "shit.delight.PSZG": "§8磐石之根",
+    "shit.delight.FSSX": "§6腐嗅噬心",
+    "shit.delight.XHRL": "§c星火熔炉",
+    "shit.delight.TYGY": "§9餮魇归一",
+    "shit.delight.YHKZ": "§7腌痕铠胄",
 
 
     "attribute.name.generic.additionalentityattributes.water_speed": "水中移动速度",
