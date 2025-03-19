@@ -1,0 +1,16 @@
+filename = 'silentsdelight-forge-1.0.1-1.20.1.jar'
+name = "Silent's Delight"
+side = 'both'
+x-prismlauncher-loaders = [ 'forge' ]
+x-prismlauncher-mc-versions = [ '1.20.1' ]
+x-prismlauncher-release-type = 'release'
+
+[download]
+hash = '2c0557c05ea7cd4e92dc1613cf0d3c03913334d8'
+hash-format = 'sha1'
+mode = 'metadata:curseforge'
+url = ''
+
+[update.curseforge]
+file-id = 5448189
+project-id = 1018647

@@ -1,0 +1,16 @@
+filename = 'CrabbersDelight-1.20.1-1.1.7d.jar'
+name = "Crabber's Delight"
+side = 'both'
+x-prismlauncher-loaders = [ 'neoforge', 'forge' ]
+x-prismlauncher-mc-versions = [ '1.20.1' ]
+x-prismlauncher-release-type = 'release'
+
+[download]
+hash = 'd8a40f10bd326ff6ef721cb24d2ee8235f186c99'
+hash-format = 'sha1'
+mode = 'metadata:curseforge'
+url = ''
+
+[update.curseforge]
+file-id = 5961411
+project-id = 892827
