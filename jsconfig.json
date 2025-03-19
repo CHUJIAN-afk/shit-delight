@@ -5,12 +5,13 @@
             "ES2015"
         ],
         "rootDirs": [
-            "global",
+            "./global",
             "probe/generated",
             "probe/user",
             "server_scripts",
             "startup_scripts",
-            "client_scripts"
+            "client_scripts",
+            "global"
         ],
         "target": "ES2015"
     }

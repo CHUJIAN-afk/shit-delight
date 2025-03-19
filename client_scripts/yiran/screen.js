@@ -7,12 +7,12 @@ NativeEvents.onEvent($ScreenEvent$Render$Post, event => {
     {
         poseStack.pushPose()
         poseStack.translate(Client.window.guiScaledWidth / 2, Client.window.guiScaledHeight / 2, 0)
-        global.drawLine(guiGraphics, poseStack, 0, 0, 100, 0, 2, -1)
-        global.drawLine(guiGraphics, poseStack, 0, 0, -100, 0, 2, -1)
-        global.drawLine(guiGraphics, poseStack, 0, 0, 50, 88, 2, -1)
-        global.drawLine(guiGraphics, poseStack, 0, 0, 50, -88, 2, -1)
-        global.drawLine(guiGraphics, poseStack, 0, 0, -50, 88, 2, -1)
-        global.drawLine(guiGraphics, poseStack, 0, 0, -50, -88, 2, -1)
+        ShitDelightClientUtils.drawLine(guiGraphics, poseStack, 0, 0, 100, 0, 2, ShitDelightClientUtils.RGBA(255,0,255,255))
+        ShitDelightClientUtils.drawLine(guiGraphics, poseStack, 0, 0, -100, 0, 2, ShitDelightClientUtils.RGBA(255,0,255,255))
+        ShitDelightClientUtils.drawLine(guiGraphics, poseStack, 0, 0, 50, 88, 2, ShitDelightClientUtils.RGBA(255,0,255,255))
+        ShitDelightClientUtils.drawLine(guiGraphics, poseStack, 0, 0, 50, -88, 2, ShitDelightClientUtils.RGBA(255,0,255,255))
+        ShitDelightClientUtils.drawLine(guiGraphics, poseStack, 0, 0, -50, 88, 2, ShitDelightClientUtils.RGBA(255,0,255,255))
+        ShitDelightClientUtils.drawLine(guiGraphics, poseStack, 0, 0, -50, -88, 2, ShitDelightClientUtils.RGBA(255,0,255,255))
         poseStack.popPose()
     }
 })
