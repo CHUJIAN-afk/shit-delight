@@ -18,6 +18,7 @@ let 上一次莓酿离歌总值 = 0
 let 餮魇归一总值 = 0
 let 腐嗅噬心总值 = 0
 let 潜渊共鸣总值 = 0
+let 腌痕铠胄总值 = 0
 
 // 允许使用的物品（白名单）
 let allowUseItem = [
@@ -98,6 +99,18 @@ EntityEvents.hurt(event => {
     })
   }
 })
+//腌痕铠胄
+EntityEvents.hurt(event => {
+    let { entity, source, damage } = event
+    let attacker = source.actual
+    if (entity && entity.isPlayer()) {
+        if (!腌痕铠胄总值) return
+        if (!attacker || !attacker.isLiving()) return
+        entity.invulnerableTime = 0
+        attacker.attack(damage * entity.getAttributeValue("minecraft:generic.armor") * 腌痕铠胄总值 * 0.003)
+        消化进度 += Math.floor(damage * entity.getAttributeValue("minecraft:generic.armor") * 腌痕铠胄总值 * 0.003)
+    }
+})
 
 PlayerEvents.tick(event => {
   let player = event.player
@@ -124,6 +137,7 @@ PlayerEvents.tick(event => {
     餮魇归一总值 = 0
     腐嗅噬心总值 = 0
     潜渊共鸣总值 = 0
+    腌痕铠胄总值 = 0
     item.forEach((item) => {
       //让胃中堆叠为1
       let count = item.count
@@ -161,6 +175,10 @@ PlayerEvents.tick(event => {
             //潜渊共鸣
             if (item.hasTag("FSNJ")) {
                 潜渊共鸣总值 += 食物营养总价值
+            }
+            //腌痕铠胄
+            if (item.hasTag("YHKZ")) {
+                腌痕铠胄总值 += 食物营养总价值
             }
             //基础六项属性
             if (item.hasTag("PSZG")) {
@@ -276,7 +294,9 @@ PlayerEvents.tick(event => {
       上一次莓酿离歌总值 = 莓酿离歌总值
     }
 
-  }
+        let 腌痕铠 = player.getAttributeValue("minecraft:generic.attack_damage") * 腌痕铠胄总值 * 0.002
+        player.modifyAttribute("minecraft:generic.armor", "胃", 腌痕铠, "multiply_base")
+    }
 })
 const 初始化属性表 = [
   "minecraft:generic.attack_knockback",
