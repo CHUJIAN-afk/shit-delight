@@ -1,0 +1,13 @@
+saves
+.vscode
+crash-reports
+local
+logs
+xaero
+emi.json
+icon.png
+options.txt
+rhino.local.properties
+usercache.json
+*.gita
+usernamecache.json

@@ -1,0 +1,16 @@
+filename = 'RingsOfAscension-1.20.1-2.0.2.jar'
+name = 'Rings of Ascension (Forge/NeoForge)'
+side = 'both'
+x-prismlauncher-loaders = [ 'neoforge', 'forge' ]
+x-prismlauncher-mc-versions = [ '1.20.1', '1.20.2' ]
+x-prismlauncher-release-type = 'release'
+
+[download]
+hash = 'd9e70093d6ac1b70823c48bf2742a9313c8a2989'
+hash-format = 'sha1'
+mode = 'metadata:curseforge'
+url = ''
+
+[update.curseforge]
+file-id = 5166182
+project-id = 379208
