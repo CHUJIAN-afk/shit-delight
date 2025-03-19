@@ -38,5 +38,34 @@ PlayerUtils.openStomachGui = function (player) {
 }
 
 ItemEvents.rightClicked(event => {
+  if(event.hand == 'main_hand')
   PlayerUtils.openStomachGui(event.player)
+})
+
+
+const CustomEvent = {}
+const CustomEvent$Handler = []
+/**
+ * 
+ * @param {(event:{stage:string,player:Internal.ServerPlayer})} event 
+ */
+CustomEvent.属性应用 = function (event) {
+  CustomEvent$Handler.push(event)
+}
+PlayerEvents.inventoryOpened(event => {
+  if (event.inventoryContainer instanceof StomachMenu)
+    CustomEvent$Handler.forEach(CE => CE({ player: event.player, stage: 'inventoryOpened' }))
+})
+PlayerEvents.inventoryClosed(event => {
+  if (event.inventoryContainer instanceof StomachMenu)
+    CustomEvent$Handler.forEach(CE => CE({ player: event.player, stage: 'inventoryClosed' }))
+})
+PlayerEvents.loggedIn(event => {
+  CustomEvent$Handler.forEach(CE => CE({ player: event.player, stage: 'loggedIn' }))
+})
+PlayerEvents.respawned(event => {
+  CustomEvent$Handler.forEach(CE => CE({ player: event.player, stage: 'loggedIn' }))
+})
+CustomEvent.属性应用(e => {
+  e.player.tell(e.stage)
 })
