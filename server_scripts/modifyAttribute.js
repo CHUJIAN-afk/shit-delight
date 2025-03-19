@@ -131,67 +131,67 @@ PlayerEvents.tick(event => {
         item.shrink(count - 1)
         player.give(Item.of(item, count - 1))
       }
-      //食物属性值计算
-      let FM = 0;
-      const tags = ["XKHX", "JHXY", "SLMY", "XHRL", "JFZS", "PSZG"];
-      tags.forEach(tag => {
-        if (item.hasTag(tag)) FM++;
-      });
-      let foodProps = item.getFoodProperties(player)
-      if (!foodProps) return
-      let 饥饿值 = foodProps.getNutrition()
-      let 饱和度 = foodProps.getSaturationModifier()
-      let 食物营养总价值 = Math.floor((饥饿值 + 饱和度 * 0.5) / Math.max(FM, 1) + 1);
-      let 磐石之根系数 = (饥饿值 - 饱和度) / 5
-      let 风之轻语系数 = 饥饿值 / (Math.abs(饱和度) + 0.5) / 3
-      let 星火熔炉系数 = (Math.pow(饥饿值, 1.2) + Math.pow(饱和度, 1.2)) / 10
-      let 森灵秘语系数 = Math.log(饥饿值 + 1) * (饱和度 + 0.3) / 1.5
-      let 匠魂飨宴系数 = ((饥饿值 / 饱和度) + Math.sqrt(饥饿值 + 饱和度)) / 9
-      let 虚空遗尘系数 = Math.exp(饥饿值 * 饱和度 * 0.05)
-      //果香织梦
-      if (item.hasTag("GXZM")) {
-        果香织梦总值 += 食物营养总价值
-      }
-      //莓酿离歌
-      if (item.hasTag("brewinandchewin:fermented_drinks")) {
-        莓酿离歌总值 += 食物营养总价值
-      }
-      //餮魇归一
-      if (item.hasTag("TYGY")) {
-        餮魇归一总值 += 食物营养总价值
-      }
-      //腐嗅噬心
-      if (item.hasTag("shit")) {
-        腐嗅噬心总值 += 食物营养总价值
-      }
-      //潜渊共鸣
-      if (item.hasTag("FSNJ")) {
-        潜渊共鸣总值 += 食物营养总价值
-      }
-      //基础六项属性
-      if (item.hasTag("PSZG")) {
-        磐石之根总值 += Math.round(食物营养总价值 * 磐石之根系数);
-      }
+                  //食物属性值计算
+            let FM = 0;
+            const tags = ["XKHX", "JHXY", "SLMY", "XHRL", "JFZS", "PSZG"];
+            tags.forEach(tag => {
+                if (item.hasTag(tag)) FM++;
+            });
+            let foodProps = item.getFoodProperties(player)
+            if (!foodProps) return
+            let 饥饿值 = foodProps.getNutrition()
+            let 饱和度 = foodProps.getSaturationModifier()
+            let 食物营养总价值 = Math.floor((饥饿值 + 饱和度 * 0.5) / Math.max(FM, 1) + 1);
+            //果香织梦
+            if (item.hasTag("GXZM")) {
+                果香织梦总值 += 食物营养总价值
+            }
+            //莓酿离歌
+            if (item.hasTag("brewinandchewin:fermented_drinks")) {
+                莓酿离歌总值 += 食物营养总价值
+            }
+            //餮魇归一
+            if (item.hasTag("TYGY")) {
+                餮魇归一总值 += 食物营养总价值
+            }
+            //腐嗅噬心
+            if (item.hasTag("shit")) {
+                腐嗅噬心总值 += 食物营养总价值
+            }
+            //潜渊共鸣
+            if (item.hasTag("FSNJ")) {
+                潜渊共鸣总值 += 食物营养总价值
+            }
+            //基础六项属性
+            if (item.hasTag("PSZG")) {
+                let 磐石之根系数 = (饥饿值 - 饱和度) / 5
+                磐石之根总值 += Math.max(Math.floor(食物营养总价值 * 磐石之根系数),1)
+            }
 
-      if (item.hasTag("JFZS")) {
-        风之轻语总值 += Math.floor(食物营养总价值 * 风之轻语系数);
-      }
+            if (item.hasTag("JFZS")) {
+                let 风之轻语系数 = 饥饿值 / (Math.abs(饱和度) + 0.5) / 3
+                风之轻语总值 += Math.max(Math.floor(食物营养总价值 * 风之轻语系数),1)
+            }
 
-      if (item.hasTag("XHRL")) {
-        星火熔炉总值 += Math.ceil(食物营养总价值 * 星火熔炉系数);
-      }
+            if (item.hasTag("XHRL")) {
+                let 星火熔炉系数 = (Math.pow(饥饿值, 1.2) + Math.pow(饱和度, 1.2)) / 10
+                星火熔炉总值 += Math.max(Math.floor(食物营养总价值 * 星火熔炉系数),1)
+            }
 
-      if (item.hasTag("SLMY")) {
-        森灵秘语总值 += Math.round(食物营养总价值 * 森灵秘语系数);
-      }
+            if (item.hasTag("SLMY")) {
+                let 森灵秘语系数 = Math.log(饥饿值 + 1) * (饱和度 + 0.3) / 1.5
+                森灵秘语总值 += Math.max(Math.floor(食物营养总价值 * 森灵秘语系数),1)
+            }
 
-      if (item.hasTag("JHXY")) {
-        匠魂飨宴总值 += Math.round(食物营养总价值 * 匠魂飨宴系数);
-      }
+            if (item.hasTag("JHXY")) {
+                let 匠魂飨宴系数 = ((饥饿值 / (饱和度 + 1)) + Math.sqrt(饥饿值 + 饱和度)) / 9
+                匠魂飨宴总值 += Math.max(Math.floor(食物营养总价值 * 匠魂飨宴系数),1)
+            }
 
-      if (item.hasTag("XKHX")) {
-        虚空遗尘总值 += Math.round(食物营养总价值 * 虚空遗尘系数);
-      }
+            if (item.hasTag("XKHX")) {
+                let 虚空遗尘系数 = Math.exp(饥饿值 * 饱和度 * 0.05)
+                虚空遗尘总值 += Math.max(Math.floor(食物营养总价值 * 虚空遗尘系数),1)
+            }
 
     })
     生命类属性 = 磐石之根总值 * 0.3 + 风之轻语总值 * 0.6 + 星火熔炉总值 * 0.4 + 森灵秘语总值 * 0.8 + 匠魂飨宴总值 * 0.2 + 虚空遗尘总值 * 1;
