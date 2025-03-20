@@ -38,32 +38,41 @@ PlayerUtils.openStomachGui = function (player) {
 }
 
 ItemEvents.rightClicked(event => {
-  if(event.hand == 'main_hand')
-  PlayerUtils.openStomachGui(event.player)
+  if (event.hand == 'main_hand')
+    PlayerUtils.openStomachGui(event.player)
 })
 
 
-NetworkEvents.dataReceived('openStomachMenu',event=>{
-  PlayerUtils.openStomachGui(event.player)
+NetworkEvents.dataReceived('openStomachMenu', event => {
+  // PlayerUtils.openStomachGui(event.player)
+  ShitDelightUtils.openStomachGui(event.player,event.player.persistentData.StomachItem)
 })
 
 
 const CustomEvent = {}
 const CustomEvent$Handler = []
+const CustomEvent$StomachGui$Change$Handler = []
 /**
- * 
  * @param {(event:{stage:string,player:Internal.ServerPlayer})} event 
  */
 CustomEvent.属性应用 = function (event) {
   CustomEvent$Handler.push(event)
+}
+/**
+ * @param {(event:{stage:string,player:Internal.ServerPlayer,container:StomachMenu})} event 
+ */
+CustomEvent.StomachGuiClose = function (event) {
+  CustomEvent$StomachGui$Change$Handler.push(event)
 }
 PlayerEvents.inventoryOpened(event => {
   if (event.inventoryContainer instanceof StomachMenu)
     CustomEvent$Handler.forEach(CE => CE({ player: event.player, stage: 'inventoryOpened' }))
 })
 PlayerEvents.inventoryClosed(event => {
-  if (event.inventoryContainer instanceof StomachMenu)
+  if (event.inventoryContainer instanceof StomachMenu){
     CustomEvent$Handler.forEach(CE => CE({ player: event.player, stage: 'inventoryClosed' }))
+    CustomEvent$StomachGui$Change$Handler.forEach(CE => CE({container:event.getInventoryContainer(), player: event.player, stage: 'inventoryClosed' }))
+  }
 })
 PlayerEvents.loggedIn(event => {
   CustomEvent$Handler.forEach(CE => CE({ player: event.player, stage: 'loggedIn' }))
@@ -73,4 +82,9 @@ PlayerEvents.respawned(event => {
 })
 CustomEvent.属性应用(e => {
   e.player.tell(e.stage)
+})
+
+//存储item
+CustomEvent.StomachGuiClose(e=>{
+  e.player.persistentData.StomachItem = e.container.items
 })
