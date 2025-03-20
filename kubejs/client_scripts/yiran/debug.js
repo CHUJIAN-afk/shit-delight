@@ -62,3 +62,12 @@ NativeEvents.onEvent($ScreenEvent$Render$Post, event => {
             break
     }
 })
+if(false){
+let $ForgeRegistries = Java.loadClass("net.minecraftforge.registries.ForgeRegistries")
+let printf = ''
+$ForgeRegistries.ATTRIBUTES.forEach(v=>{
+    let key = v.descriptionId
+    printf += `\n/`+`/${Text.translatable(key).getString()}\n/`+`/${Text.translatable(key+'.desc').getString()}\n"${key}"`
+})
+console.log(printf)
+}
