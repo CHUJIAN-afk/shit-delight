@@ -300,11 +300,11 @@ PlayerEvents.tick(event => {
 })
 const 初始化属性表 = [
   "minecraft:generic.attack_knockback",
-  "additionalentityattributes:lung_capacity",
-  "additionalentityattributes:dig_speed",
-  "additionalentityattributes:bonus_loot_count_rolls",
-  "additionalentityattributes:dropped_experience",
-  "additionalentityattributes:magic_protection",
+  // "additionalentityattributes:lung_capacity",
+  // "additionalentityattributes:dig_speed",
+  // "additionalentityattributes:bonus_loot_count_rolls",
+  // "additionalentityattributes:dropped_experience",
+  // "additionalentityattributes:magic_protection",
   "attributeslib:life_steal",
   "attributeslib:overheal",
   "attributeslib:prot_pierce"

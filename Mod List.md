@@ -12,7 +12,6 @@
 - [x] [Curios API](https://www.mcmod.cn/class/2029.html)// 添加
 ## 冒险
 - [x] [暮色森林 (The Twilight Forest)](https://www.mcmod.cn/class/61.html)
-
 ## 科技
 ## 农业
 - [x] [农夫乐事 (Farmer's Delight)](https://www.mcmod.cn/class/2820.html)
@@ -51,3 +50,4 @@
 - [x] [KeyBindJS](https://www.mcmod.cn/class/18686.html)// 添加
 - [x] [绷带 (Hotai)](https://www.mcmod.cn/class/13571.html)// 添加
 - [x] [RenderJS](https://www.mcmod.cn/class/15045.html)// 后续若有物品装饰条的渲染会需要这个mod
+- [x] [PowerfulJS](https://www.mcmod.cn/class/9223.html)// 添加
