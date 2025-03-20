@@ -45,13 +45,21 @@ ItemEvents.rightClicked(event => {
 
 NetworkEvents.dataReceived('openStomachMenu', event => {
   // PlayerUtils.openStomachGui(event.player)
-  ShitDelightUtils.openStomachGui(event.player,event.player.persistentData.StomachItem)
+  
+  //ShitDelightUtils.openStomachGui(event.player,event.player.persistentData.getList('StomachItem',10))
+  ShitDelightUtils.openStomachGui(
+    "eventjs:stomach_menu_9x5",
+    event.player,
+    45,
+    event.player.persistentData.getList('StomachItem',10)
+  )
 })
 
 
 const CustomEvent = {}
 const CustomEvent$Handler = []
 const CustomEvent$StomachGui$Change$Handler = []
+const CustomEvent$StomachGui$Colsed$Handler = []
 /**
  * @param {(event:{stage:string,player:Internal.ServerPlayer})} event 
  */
@@ -62,8 +70,10 @@ CustomEvent.属性应用 = function (event) {
  * @param {(event:{stage:string,player:Internal.ServerPlayer,container:StomachMenu})} event 
  */
 CustomEvent.StomachGuiClose = function (event) {
-  CustomEvent$StomachGui$Change$Handler.push(event)
+  CustomEvent$StomachGui$Colsed$Handler.push(event)
 }
+
+
 PlayerEvents.inventoryOpened(event => {
   if (event.inventoryContainer instanceof StomachMenu)
     CustomEvent$Handler.forEach(CE => CE({ player: event.player, stage: 'inventoryOpened' }))
@@ -71,7 +81,7 @@ PlayerEvents.inventoryOpened(event => {
 PlayerEvents.inventoryClosed(event => {
   if (event.inventoryContainer instanceof StomachMenu){
     CustomEvent$Handler.forEach(CE => CE({ player: event.player, stage: 'inventoryClosed' }))
-    CustomEvent$StomachGui$Change$Handler.forEach(CE => CE({container:event.getInventoryContainer(), player: event.player, stage: 'inventoryClosed' }))
+    CustomEvent$StomachGui$Colsed$Handler.forEach(CE => CE({container:event.getInventoryContainer(), player: event.player, stage: 'inventoryClosed' }))
   }
 })
 PlayerEvents.loggedIn(event => {
@@ -83,8 +93,11 @@ PlayerEvents.respawned(event => {
 CustomEvent.属性应用(e => {
   e.player.tell(e.stage)
 })
+// let $ItemStack = Java.loadClass('net.minecraft.world.item.ItemStack')
+// Utils.server.players[0].persistentData.StomachItem = [Item.of('ends_delight:assorted_salad')]
+// delete Utils.server.players[0].persistentData.StomachItem
 
-//存储item
+//保存容器数据
 CustomEvent.StomachGuiClose(e=>{
   e.player.persistentData.StomachItem = e.container.items
 })
