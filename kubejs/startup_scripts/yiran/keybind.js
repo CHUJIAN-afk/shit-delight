@@ -10,7 +10,7 @@ if (false)//删除按键
         let name = text.slice(0, text.indexOf(":") - 1)
         let key = text.slice(text.indexOf(":") + 2)
         info += `
-            event.remove('${key}') //${name}`
+event.remove('${key}') //${name}`
     })
     console.log(info)
 }
@@ -45,4 +45,24 @@ KeyBindEvents.modify(event => {
     event.modifyKey('gui.xaero_reverse_entity_radar', -1) //反转雷达渲染顺序
     event.modifyKey('gui.xaero_toggle_manual_cave_mode', -1) //切换手动洞穴模式
     event.modifyKey('gui.xaero_alternative_list_players', -1) //“玩家列表”第二键位
+})
+let HideKeyList = [
+    'key.hotbar.1', //快捷栏1
+    'key.hotbar.2', //快捷栏2
+    'key.hotbar.3', //快捷栏3
+    'key.hotbar.4', //快捷栏4
+    'key.hotbar.5', //快捷栏5
+    'key.hotbar.6', //快捷栏6
+    'key.hotbar.7', //快捷栏7
+    'key.hotbar.8', //快捷栏8
+    'key.hotbar.9', //快捷栏9
+]
+//在这里隐藏会使按键为默认状态,即不读取自己的配置
+ClientEvents.init(e=>{
+    let newKeyMappings = []
+    Client.options.keyMappings.forEach(key=>{
+        if(HideKeyList.indexOf(key.name)==-1)
+            newKeyMappings.push(key)
+    })
+    Client.options.keyMappings = newKeyMappings
 })
