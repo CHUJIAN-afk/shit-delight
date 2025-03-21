@@ -123,3 +123,14 @@ ItemEvents.foodEaten(event => {
 
   player.persistentData.StomachItem = items
 })
+
+if (false) {//测试使用
+  /**
+   * @type {Internal.Player}
+   */
+  let player = Utils.server.players[0]
+  player.setContainer([Item.of("diamond"), Item.of("diamond"), Item.of("diamond", 50)])
+
+
+  player.tell(player.container)
+}
