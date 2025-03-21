@@ -5,43 +5,37 @@ EntityEvents.hurt(event => {
     if (entity && entity.isPlayer()) {
         let 受到伤害量 = event.damage
         if (受到伤害量 !== 0) {
-            消化进度 += Math.floor(受到伤害量 * 消化基础值)
+            let 持久化数据 = entity.persistentData;
+            let 消化进度 = 持久化数据.getString("消化进度");
+            持久化数据.putString("消化进度", 消化进度 + Math.floor(受到伤害量 * 消化基础值))
         }
     }
     if (event.source.actual && event.source.actual.isPlayer()) {
         let 造成伤害 = event.damage
         if (造成伤害 !== 0) {
-            消化进度 += Math.floor(造成伤害 * 消化基础值 * 0.1)
+            let 持久化数据 = event.source.actual.persistentData;
+            let 消化进度 = 持久化数据.getString("消化进度");
+            持久化数据.putString("消化进度", 消化进度 + Math.floor(造成伤害 * 消化基础值))
         }
     }
 });
 
 EntityEvents.hurt(event => {
-    let attacker = event.source.getActual();
-    if (!attacker) return
-    if (!attacker.isPlayer()) return
-    if (!attacker.tags.contains("刀") && attacker.isPlayer() || event.source.isIndirect()) {
+    let { player } = event
+    if (!player) return
+    let offhandItem = player.offhandItem
+    let mainhandItem = player.mainHandItem
+    if (offhandItem.hasTag('minecraft:tools') || mainhandItem.hasTag('minecraft:tools')) {
+        event.cancel()
+    }
+    if (!mainhandItem.hasTag('forge:tools/knives')) {
         event.cancel()
     }
 });
-
+//受击重置无敌帧，吼吼
 EntityEvents.hurt(event => {
     event.entity.invulnerableTime = 0
 });
-
-PlayerEvents.tick(event => {
-    let player = event.player
-    let offhandItem = event.player.offhandItem
-    let mainhandItem = event.player.mainHandItem
-    player.tags.add("刀")
-    if (offhandItem.hasTag('minecraft:tools') || mainhandItem.hasTag('minecraft:tools')) {
-        player.tags.remove("刀")
-    }
-    if (!mainhandItem.hasTag('forge:tools/knives')) {
-        player.tags.remove("刀")
-    }
-})
-
 
 
 

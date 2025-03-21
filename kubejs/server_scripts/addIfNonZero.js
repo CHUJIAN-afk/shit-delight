@@ -4,9 +4,9 @@ const addIfNonZero = (color, name, value) => {
     }
     return null;
 };
-//后续还需要改为从胃中获取物品
+//保留胃镜查看数值功能
 ItemEvents.rightClicked(event => {
-    const player = event.player;
+    let player = event.player;
     let 持久化数据 = player.persistentData;
     let 莓酿离歌总值 = 持久化数据.getString("莓酿离歌");
     let 磐石之根总值 = 持久化数据.getString("磐石之根");
@@ -23,7 +23,7 @@ ItemEvents.rightClicked(event => {
     if (player.shiftKeyDown && player.mainHandItem.id == "kubejs:magnifying_glass") {
         (() => {
             const lines = [
-                "==便携性胃镜==",
+                "==便携胃镜==",
                 addIfNonZero("", "每分钟消化数", Math.floor(6000 / (30000 / ((磐石之根总值 + 风之轻语总值 + 星火熔炉总值 + 森灵秘语总值 + 匠魂飨宴总值 + 虚空遗尘总值) * (100 - 腐嗅噬心总值*1.5) / 100))) / 100),
                 addIfNonZero("§8", "磐石之根", 磐石之根总值),
                 addIfNonZero("§b", "风之轻语", 风之轻语总值),
@@ -46,9 +46,6 @@ ItemEvents.rightClicked(event => {
                 player.setStatusMessage("§6胃里空空如也");
             }
         })();
-    }
-    if(!player.shiftKeyDown && player.mainHandItem.id == "kubejs:magnifying_glass"){
-        player.openInventoryGUI(event.player.enderChestInventory,Component.translatable("胃"))
     }
 });
 

@@ -32,7 +32,7 @@ ItemEvents.tooltip(event => {
         let 饱和度 = foodProps.getSaturationModifier()
         TAG_CONFIGS.forEach(config => {
             if (itemStack.hasTag(config.tag)) {
-                let 属性集值 = {
+                let 属性系数 = {
                     '果香织梦': 1,
                     '莓酿离歌': 1,
                     '餮魇归一': 1,
@@ -46,7 +46,7 @@ ItemEvents.tooltip(event => {
                     '风之轻语': 饥饿值 / (Math.abs(饱和度) + 0.5) / 3,
                     '磐石之根': (饥饿值 - 饱和度) / 5
                 };
-                event.add(itemId, `${config.color}${config.name} §7${Math.max(Math.floor(baseValue * 属性集值[config.name]), 1)}`);
+                event.add(itemId, `${config.color}${config.name} §7${Math.max(Math.floor(baseValue * 属性系数[config.name]), 1)}`);
             }
         });
     });

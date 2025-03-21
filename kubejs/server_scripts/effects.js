@@ -2,6 +2,8 @@ PlayerEvents.tick(event => {
     let player = event.player
     if (player.age % 119 === 0) {
         let 当前胃中效果数量 = 0
+        let 持久化数据 = player.persistentData;
+        let 餮魇归一总值 = 持久化数据.getString("餮魇归一");
         let 胃中效果最大数量 = Math.floor(餮魇归一总值 / 10) + 2
         let item = player.enderChestInventory.getAllItems()
         item.forEach((item) => {
