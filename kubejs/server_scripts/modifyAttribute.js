@@ -35,7 +35,7 @@ let allowUseItem = [
 //果香织梦
 PlayerEvents.tick(event => {
   let { player, player: { mainHandItem, offHandItem } } = event
-  let 持久化数据 = entity.persistentData;
+  let 持久化数据 = player.persistentData;
   let 果香织梦总值 = 持久化数据.getString("果香织梦");
   if (果香织梦总值 && !(player.age % 100)) {
     //恢复饥饿值饱和度
@@ -60,7 +60,7 @@ EntityEvents.hurt(event => {
   let { server, entity, source, damage: oldDamage } = event
   let attacker = source.actual
   if (attacker && attacker.isPlayer()) {
-    let 持久化数据 = entity.persistentData;
+    let 持久化数据 = attacker.persistentData;
     let 潜渊共鸣总值 = 持久化数据.getString("潜渊共鸣");
     if (!潜渊共鸣总值) return
     let damage = oldDamage * 潜渊共鸣总值 * 0.05//计算伤害
@@ -198,12 +198,12 @@ PlayerEvents.tick(event => {
     let 潜渊共鸣总值 = 持久化数据.getString("潜渊共鸣");
     let 腌痕铠胄总值 = 持久化数据.getString("腌痕铠胄");
     //根据系数进行计算数值
-    let 生命类属性 = 磐石之根总值 * 0.3 + 风之轻语总值 * 0.5 + 星火熔炉总值 * -0.4 + 森灵秘语总值 * 0.8 + 匠魂飨宴总值 * 0.2 + 虚空遗尘总值 * 0.6;
+    let 生命类属性 = 磐石之根总值 * 0.3 + 风之轻语总值 * 0.5 + 星火熔炉总值 * -0.4 + 森灵秘语总值 * 1.4 + 匠魂飨宴总值 * 0.2 + 虚空遗尘总值 * 0.6;
     let 防御类属性 = 磐石之根总值 * 1.4 + 风之轻语总值 * -0.3 + 星火熔炉总值 * -0.4 + 森灵秘语总值 * 0.2 + 匠魂飨宴总值 * 0 + 虚空遗尘总值 * 0.2;
     let 速度类属性 = 磐石之根总值 * -0.2 + 风之轻语总值 * 1.7 + 星火熔炉总值 * -0.8 + 森灵秘语总值 * 0.1 + 匠魂飨宴总值 * 0 + 虚空遗尘总值 * 0.2;
     let 攻击类属性 = 磐石之根总值 * 0.1 + 风之轻语总值 * -0.5 + 星火熔炉总值 * 2.9 + 森灵秘语总值 * -0.3 + 匠魂飨宴总值 * 0.4 + 虚空遗尘总值 * 0.2;
     let 恢复类属性 = 磐石之根总值 * 0.4 + 风之轻语总值 * 0.4 + 星火熔炉总值 * 0 + 森灵秘语总值 * 1.2 + 匠魂飨宴总值 * -0.2 + 虚空遗尘总值 * 0.2;
-    let 采掘类属性 = 磐石之根总值 * 0 + 风之轻语总值 * 0.2 + 星火熔炉总值 * 0.3 + 森灵秘语总值 * 0 + 匠魂飨宴总值 * 1.5 + 虚空遗尘总值 * 0.2;
+    let 采掘类属性 = 磐石之根总值 * 0 + 风之轻语总值 * 0.2 + 星火熔炉总值 * 0.3 + 森灵秘语总值 * 0 + 匠魂飨宴总值 * 1.8 + 虚空遗尘总值 * 0.2;
     //最终加成系数
     生命类属性 *= 0.01
     防御类属性 *= 0.01

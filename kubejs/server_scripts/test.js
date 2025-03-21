@@ -15,89 +15,122 @@
  * 属性将重构，舍弃AEA模组
  */
 
-let $NetworkHooks = Java.loadClass('net.minecraftforge.network.NetworkHooks')
-let $SimpleMenuProvider = Java.loadClass('net.minecraft.world.SimpleMenuProvider')
-let $SimpleContainer = Java.loadClass('net.minecraft.world.SimpleContainer')
-let $StomachMenu = Java.loadClass('zank.mods.eventjs.StomachMenu')
 
-function PlayerUtils() {
-
-}
 
 /**
  * 
- * @param {Internal.Player} player 
+ * 卧槽，写成屎山了
+ * 等明天的时候重构救一下 
+ * 把部分重复代码提出来写成function
+ * 
  */
-PlayerUtils.openStomachGui = function (player) {
-  $NetworkHooks.openScreen(
-    player,
-    new $SimpleMenuProvider((containerId, playerInventory, player) =>
-      $StomachMenu.StomachMenu_3x3(containerId, playerInventory, new $SimpleContainer(54))
-      , Component.translatable('test'))
-  )
-}
 
-ItemEvents.rightClicked(event => {
-  if (event.hand == 'main_hand')
-    PlayerUtils.openStomachGui(event.player)
-})
+let $NetworkHooks = Java.loadClass('net.minecraftforge.network.NetworkHooks')
+let $SimpleMenuProvider = Java.loadClass('net.minecraft.world.SimpleMenuProvider')
+let $SimpleContainer = Java.loadClass('net.minecraft.world.SimpleContainer')
+let $ItemStack = Java.loadClass('net.minecraft.world.item.ItemStack')
+let $NonNullList = Java.loadClass('net.minecraft.core.NonNullList')
 
-
-NetworkEvents.dataReceived('openStomachMenu', event => {
-  // PlayerUtils.openStomachGui(event.player)
-  
-  //ShitDelightUtils.openStomachGui(event.player,event.player.persistentData.getList('StomachItem',10))
-  ShitDelightUtils.openStomachGui(
-    "eventjs:stomach_menu_9x5",
-    event.player,
-    45,
-    event.player.persistentData.getList('StomachItem',10)
-  )
-})
-
-
-const CustomEvent = {}
-const CustomEvent$Handler = []
-const CustomEvent$StomachGui$Change$Handler = []
-const CustomEvent$StomachGui$Colsed$Handler = []
-/**
- * @param {(event:{stage:string,player:Internal.ServerPlayer})} event 
- */
-CustomEvent.属性应用 = function (event) {
-  CustomEvent$Handler.push(event)
-}
-/**
- * @param {(event:{stage:string,player:Internal.ServerPlayer,container:StomachMenu})} event 
- */
-CustomEvent.StomachGuiClose = function (event) {
-  CustomEvent$StomachGui$Colsed$Handler.push(event)
-}
-
-
-PlayerEvents.inventoryOpened(event => {
-  if (event.inventoryContainer instanceof StomachMenu)
-    CustomEvent$Handler.forEach(CE => CE({ player: event.player, stage: 'inventoryOpened' }))
-})
-PlayerEvents.inventoryClosed(event => {
-  if (event.inventoryContainer instanceof StomachMenu){
-    CustomEvent$Handler.forEach(CE => CE({ player: event.player, stage: 'inventoryClosed' }))
-    CustomEvent$StomachGui$Colsed$Handler.forEach(CE => CE({container:event.getInventoryContainer(), player: event.player, stage: 'inventoryClosed' }))
+// 初始化胃
+PlayerEvents.loggedIn(event => {
+  if (!event.player.persistentData.StomachItem) {
+    event.player.persistentData.StomachItem = $NonNullList.withSize(9, Item.empty)
+    event.player.persistentData.StomachType = 'StomachMenu_3x3'
+    console.info(event.player.persistentData.StomachItem)
   }
 })
-PlayerEvents.loggedIn(event => {
-  CustomEvent$Handler.forEach(CE => CE({ player: event.player, stage: 'loggedIn' }))
-})
-PlayerEvents.respawned(event => {
-  CustomEvent$Handler.forEach(CE => CE({ player: event.player, stage: 'loggedIn' }))
-})
-CustomEvent.属性应用(e => {
-  e.player.tell(e.stage)
-})
-// let $ItemStack = Java.loadClass('net.minecraft.world.item.ItemStack')
-// Utils.server.players[0].persistentData.StomachItem = [Item.of('ends_delight:assorted_salad')]
-// delete Utils.server.players[0].persistentData.StomachItem
 
-//保存容器数据
-CustomEvent.StomachGuiClose(e=>{
-  e.player.persistentData.StomachItem = e.container.items
+// util就不要用hotai写在类里面了
+// 这些都是改动会比较频繁的东西，等写完了再整进去类里面也行
+
+// 打开gui我准备使用StomachMenu[MenuType]的方式
+// 后续在更新gui类型的时候，记得往新加的格子填充空物品
+NetworkEvents.dataReceived('openStomachMenu', event => {
+  // ShitDelightUtils.openStomachGui(
+  //   "eventjs:stomach_menu_3x3",
+  //   event.player,
+  //   9,
+  //   event.player.persistentData.getList('StomachItem', 10)
+  // )
+  let items = []
+  console.info(event.player.persistentData.StomachItem)
+  event.player.persistentData.StomachItem.forEach(tag => {
+    console.info(tag)
+    items.push($ItemStack.of(tag))
+  })
+
+  $NetworkHooks.openScreen(
+    event.player,
+    new $SimpleMenuProvider(
+      (containerId, playerInventory, player) =>
+        StomachMenu[event.player.persistentData.StomachType](containerId, playerInventory, new $SimpleContainer(
+          items
+        )),
+      Component.of('xxx')
+    )
+  )
 })
+
+// 属性应用
+// 等把下面的代码整理一下，然后写一个getStomachItem的方法
+// 之后就只用在这里写属性更新了
+CustomEvent.AttributeApply(event => {
+  let { player, container, stage } = event
+  player.tell(event.stage)
+})
+
+
+// 保存胃袋物品
+// container是玩家Inventory + 本来的container
+// 所以多get一层
+// 直接获取的allitems会去除空物品，所以用for遍历
+// 又被折磨了2小时……
+CustomEvent.StomachGuiClose(event => {
+  let { player, container, stage } = event
+  let list = []
+  for (let i = 0; i < container.size; i++) {
+    list.push(container.container.getItem(i))
+  }
+  player.persistentData.StomachItem = list
+})
+
+// 食用物品后往胃里存储
+// 注释写的可以取消，但我取消不了，不知道为什么
+// 后面直接检测胃部满没满，然后取消右键事件算了
+// 我眠了
+ItemEvents.foodEaten(event => {
+  let { player, item } = event
+  let items = []
+  let index = -1
+
+  player.persistentData.StomachItem.forEach(tag => {
+    items.push($ItemStack.of(tag))
+  })
+
+  for (let i = items.length; i >= 0; i--) {
+    if (items[i] == Item.empty) {
+      index = i
+    }
+  }
+  if (index != -1) {
+    let temp = item.copy()
+    temp.setCount(1)
+    items[index] = temp
+  } else {
+    player.tell(index)
+    event.cancel()
+  }
+
+  player.persistentData.StomachItem = items
+})
+
+if (false) {//测试使用
+  /**
+   * @type {Internal.Player}
+   */
+  let player = Utils.server.players[0]
+  player.setContainer([Item.of("diamond"), Item.of("diamond"), Item.of("diamond", 50)])
+
+
+  player.tell(player.container)
+}

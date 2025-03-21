@@ -1,3 +1,3 @@
-KeyBindEvents.firstKeyPress('openMenu',e=>{
-  e.player.sendData('openStomachMenu',{})
+KeyBindEvents.firstKeyPress('openMenu', event => {
+  event.player.sendData('openStomachMenu')
 })
