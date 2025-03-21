@@ -132,10 +132,11 @@ if (true) {//测试使用
   let player = Utils.server.players[0]
   // player.setContainer([Item.of("diamond"), Item.of("diamond"), Item.of("diamond", 50)])
   let stomach = player.stomach
-  stomach.setStomachItems([Item.of("diamond"), Item.of("diamond"), Item.of("diamond", 50)])
-  stomach.removeStomachItem(1)
+  //stomach.setStomachItems([Item.of("diamond"), Item.of("diamond"), Item.of("diamond", 50)])
+  //stomach.removeStomachItem(1)
+  Client.tell(stomach.setSize(9))
   stomach.replaceStomachItem(0,Item.of('acacia_leaves'))
-  stomach.addStomachItem(Item.of('acacia_boat'))
+  Client.tell(stomach.addStomachItem(Item.of('acacia_boat')))
   Client.tell(stomach.findFirstItem(Item.of('acacia_boat')))
   Client.tell(stomach.getStomachItems())
 
