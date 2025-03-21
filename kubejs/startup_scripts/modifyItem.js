@@ -31,7 +31,9 @@ let allowUseItem = [
   'minecraft:shears',
   'minecraft:brush'
 ]
+let $ItemStack = Java.loadClass('net.minecraft.world.item.ItemStack')
 
+let $BasicItemJS$Builder = Java.loadClass('dev.latvian.mods.kubejs.item.custom.BasicItemJS$Builder')
 ItemEvents.modification(event => {
   Ingredient.all.getItemIds().forEach(id => {
     if (Item.of(id).item.maxDamage > 0
@@ -42,5 +44,34 @@ ItemEvents.modification(event => {
         item.setMaxDamage(1)
       })
     }
+
+
+    //双端可能有问题,先用着
+    if (Item.of(id).item.getFoodProperties())
+      event.modify(Item.of(id), item => {
+        item.setItemBuilder(
+          new $BasicItemJS$Builder(id).use((l, p, h) => {
+            if(l.isClientSide())return true
+            let canuse = true
+            let items = []
+            let index = -1
+            p.persistentData.StomachItem.forEach(tag => {
+              items.push($ItemStack.of(tag))
+            })
+          
+            for (let i = items.length; i >= 0; i--) {
+              if (items[i] == Item.empty) {
+                index = i
+              }
+            }
+            if (index == -1) {
+              canuse = false
+            }
+            return canuse
+          
+          }))
+      })
+
+
   })
 })

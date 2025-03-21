@@ -132,27 +132,13 @@ if (true) {//测试使用
   let player = Utils.server.players[0]
   // player.setContainer([Item.of("diamond"), Item.of("diamond"), Item.of("diamond", 50)])
   let stomach = player.stomach
-  //stomach.setStomachItems([Item.of("diamond"), Item.of("diamond"), Item.of("diamond", 50)])
-  //stomach.removeStomachItem(1)
+  stomach.setStomachItems([Item.of("diamond"), Item.of("diamond"), Item.of("diamond", 50)])
   Client.tell(stomach.setSize(9))
+  stomach.removeStomachItem(1)
   stomach.replaceStomachItem(0,Item.of('acacia_leaves'))
   Client.tell(stomach.addStomachItem(Item.of('acacia_boat')))
   Client.tell(stomach.findFirstItem(Item.of('acacia_boat')))
+  Client.tell(stomach.findItems(Item.of("diamond")))
   Client.tell(stomach.getStomachItems())
 
-  // player.addContainerItem(Item.of('acacia_boat'))
-  // player.tell(player.container)
-  // player.tell(player.getStomach().getStomachItems())
-
-  // player.tell(player.findFirstItemInContainer(Item.of('acacia_boat')))
-  // player.tell(player.findItemsInContainer(Item.of("diamond")))
 }
-/*
-container为ItemStack[]
-可以通过SetContainer来修改整个container
-通过addContainerItem来添加一个item
-
-find仅匹配itemstack的item是否相同,不匹配nbt
-通过findFirstItemInContainer来查找第一个符合的item
-通过findItemsInContainer来查找符合的item
-*/
