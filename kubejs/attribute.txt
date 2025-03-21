@@ -2,9 +2,6 @@
 //最大生命值
 //你拥有的生命值点数。
 "attribute.name.generic.max_health"
-//生物跟随距离
-//attribute.name.generic.follow_range.desc
-"attribute.name.generic.follow_range"
 //击退抗性
 //你无视的击退量。
 "attribute.name.generic.knockback_resistance"
@@ -32,12 +29,6 @@
 //幸运值
 //增加好事发生的可能性。
 "attribute.name.generic.luck"
-//僵尸增援
-//attribute.name.zombie.spawn_reinforcements.desc
-"attribute.name.zombie.spawn_reinforcements"
-//马匹跳跃能力
-//attribute.name.horse.jump_strength.desc
-"attribute.name.horse.jump_strength"
 //游泳速度
 //相对于正常情况，你的游泳速度。
 "forge.swim_speed"
@@ -92,9 +83,6 @@
 //火焰伤害
 //对近战攻击施加额外魔法伤害，并燃烧被击中的敌人。
 "attributeslib:fire_damage"
-//虚假生命
-//尚未实现
-"attributeslib:ghost_health"
 //受到治疗
 //所有受到治疗的乘数。
 "attributeslib:healing_received"

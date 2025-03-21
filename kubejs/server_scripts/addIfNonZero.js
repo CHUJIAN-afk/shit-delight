@@ -4,8 +4,22 @@ const addIfNonZero = (color, name, value) => {
     }
     return null;
 };
+//后续还需要改为从胃中获取物品
 ItemEvents.rightClicked(event => {
     const player = event.player;
+    let 持久化数据 = player.persistentData;
+    let 莓酿离歌总值 = 持久化数据.getString("莓酿离歌");
+    let 磐石之根总值 = 持久化数据.getString("磐石之根");
+    let 风之轻语总值 = 持久化数据.getString("风之轻语");
+    let 星火熔炉总值 = 持久化数据.getString("星火熔炉");
+    let 森灵秘语总值 = 持久化数据.getString("森灵秘语");
+    let 匠魂飨宴总值 = 持久化数据.getString("匠魂飨宴");
+    let 虚空遗尘总值 = 持久化数据.getString("虚空遗尘");
+    let 果香织梦总值 = 持久化数据.getString("果香织梦");
+    let 餮魇归一总值 = 持久化数据.getString("餮魇归一");
+    let 腐嗅噬心总值 = 持久化数据.getString("腐嗅噬心");
+    let 潜渊共鸣总值 = 持久化数据.getString("潜渊共鸣");
+    let 腌痕铠胄总值 = 持久化数据.getString("腌痕铠胄");
     if (player.shiftKeyDown && player.mainHandItem.id == "kubejs:magnifying_glass") {
         (() => {
             const lines = [
@@ -38,6 +52,3 @@ ItemEvents.rightClicked(event => {
     }
 });
 
-BlockEvents.rightClicked("ender_chest",event=>{
-    event.cancel()
-})

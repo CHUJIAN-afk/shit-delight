@@ -310,3 +310,6 @@ function 初始化属性(event) {
   event.player.modifyAttribute("minecraft:generic.armor_toughness", "基础值", 2, "addition");
   属性修改 = true
 }
+
+
+

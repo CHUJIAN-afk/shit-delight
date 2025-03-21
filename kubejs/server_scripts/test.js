@@ -36,6 +36,7 @@ PlayerEvents.loggedIn(event => {
   if (!event.player.persistentData.StomachItem) {
     event.player.persistentData.StomachItem = $NonNullList.withSize(9, Item.empty)
     event.player.persistentData.StomachType = 'StomachMenu_3x3'
+    event.player.persistentData.StomachSize = 9
     console.info(event.player.persistentData.StomachItem)
   }
 })
@@ -120,7 +121,7 @@ ItemEvents.foodEaten(event => {
     player.tell(index)
     event.cancel()
   }
-
+  
   player.persistentData.StomachItem = items
 })
 
