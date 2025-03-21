@@ -129,8 +129,21 @@ if (false) {//测试使用
    * @type {Internal.Player}
    */
   let player = Utils.server.players[0]
-  player.setContainer([Item.of("diamond"), Item.of("diamond"), Item.of("diamond", 50)])
+  // player.setContainer([Item.of("diamond"), Item.of("diamond"), Item.of("diamond", 50)])
 
 
+  // player.addContainerItem(Item.of('acacia_boat'))
   player.tell(player.container)
+
+  player.tell(player.findFirstItemInContainer(Item.of('acacia_boat')))
+  player.tell(player.findItemsInContainer(Item.of("diamond")))
 }
+/*
+container为ItemStack[]
+可以通过SetContainer来修改整个container
+通过addContainerItem来添加一个item
+
+find仅匹配itemstack的item是否相同,不匹配nbt
+通过findFirstItemInContainer来查找第一个符合的item
+通过findItemsInContainer来查找符合的item
+*/
