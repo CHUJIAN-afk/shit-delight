@@ -125,19 +125,23 @@ ItemEvents.foodEaten(event => {
   player.persistentData.StomachItem = items
 })
 
-if (false) {//测试使用
+if (true) {//测试使用
   /**
    * @type {Internal.Player}
    */
   let player = Utils.server.players[0]
   // player.setContainer([Item.of("diamond"), Item.of("diamond"), Item.of("diamond", 50)])
-
+  let stomach = player.stomach
+  stomach.setStomachItems([Item.of("diamond"), Item.of("diamond"), Item.of("diamond", 50)])
+  stomach.addStomachItem(Item.of('acacia_boat'))
+  Client.tell(stomach.findFirstItem(Item.of('acacia_boat')))
 
   // player.addContainerItem(Item.of('acacia_boat'))
-  player.tell(player.container)
+  // player.tell(player.container)
+  // player.tell(player.getStomach().getStomachItems())
 
-  player.tell(player.findFirstItemInContainer(Item.of('acacia_boat')))
-  player.tell(player.findItemsInContainer(Item.of("diamond")))
+  // player.tell(player.findFirstItemInContainer(Item.of('acacia_boat')))
+  // player.tell(player.findItemsInContainer(Item.of("diamond")))
 }
 /*
 container为ItemStack[]
