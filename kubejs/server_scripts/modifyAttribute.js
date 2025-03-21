@@ -35,7 +35,7 @@ let allowUseItem = [
 //果香织梦
 PlayerEvents.tick(event => {
   let { player, player: { mainHandItem, offHandItem } } = event
-  let 持久化数据 = entity.persistentData;
+  let 持久化数据 = player.persistentData;
   let 果香织梦总值 = 持久化数据.getString("果香织梦");
   if (果香织梦总值 && !(player.age % 100)) {
     //恢复饥饿值饱和度
@@ -60,7 +60,7 @@ EntityEvents.hurt(event => {
   let { server, entity, source, damage: oldDamage } = event
   let attacker = source.actual
   if (attacker && attacker.isPlayer()) {
-    let 持久化数据 = entity.persistentData;
+    let 持久化数据 = attacker.persistentData;
     let 潜渊共鸣总值 = 持久化数据.getString("潜渊共鸣");
     if (!潜渊共鸣总值) return
     let damage = oldDamage * 潜渊共鸣总值 * 0.05//计算伤害
