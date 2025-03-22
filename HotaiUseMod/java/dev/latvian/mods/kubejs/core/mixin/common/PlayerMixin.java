@@ -82,8 +82,8 @@ public abstract class PlayerMixin implements PlayerKJS {
     private Stomach Stomach;
 
     public Stomach getStomach() {
-        if (this.Stomach == null) {
-            return new Stomach((Player) (Object) this, new CompoundTag());
+        if (Stomach == null) {
+            Stomach = new Stomach((Player) (Object) this, new CompoundTag());
         }
         return Stomach;
     }
@@ -94,7 +94,7 @@ public abstract class PlayerMixin implements PlayerKJS {
 
     @Inject(at = @At("RETURN"), method = "m_7380_")
     public void sd$addAdditionalSaveData(CompoundTag pCompound, CallbackInfo ci) {
-        pCompound.put("Stomach", this.Stomach.save());
+        pCompound.put("Stomach", this.getStomach().save());
     }
 
     @Inject(at = @At("RETURN"), method = "m_7378_")
@@ -104,8 +104,9 @@ public abstract class PlayerMixin implements PlayerKJS {
 
     @Inject(at = @At("RETURN"), method = "m_8119_")
     public void sd$tick(CallbackInfo ci) {
-        for (ItemStack itemStack : this.getStomach().container) {
+        if (this.Stomach != null) {
+        for (ItemStack itemStack : this.Stomach.getRandomTickItems()) {
             MinecraftForge.EVENT_BUS.post(new StomachRandomTickEvent((Player) (Object) this, itemStack));
-        }
+        }}
     }
 }

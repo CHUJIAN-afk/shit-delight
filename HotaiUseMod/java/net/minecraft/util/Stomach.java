@@ -5,6 +5,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
@@ -114,23 +115,21 @@ public class Stomach {
         NetworkHooks.openScreen(
                 (ServerPlayer) this.player,
                 new SimpleMenuProvider(
-                        (i, inventory, player1) -> new StomachMenu(StomachMenu.STOMACH_MENU_3x3.get(), i, inventory, getContainer(), size),
+                        (i, inventory, player1) -> new StomachMenu(StomachMenu.STOMACH_MENU_3x3.get(), i, inventory, new SimpleContainer(this.container), size),
                         title)
         );
     }
 
-    public Container getContainer(){
-        return new NoSimpleContainer(this.container);
-    }
-
     public ItemStack[] getRandomTickItems(){
         ArrayList<ItemStack> items = new ArrayList<>();
-        for (int i = 0; i < this.randomTick; i++) {
-            ItemStack itemStack = this.container[(int)( Math.random()*this.size)];
-            if (!itemStack.isEmpty()) {
-                items.add(itemStack);
-            }
+        if(this.container.length>0) {
+            for (int i = 0; i < this.randomTick; i++) {
+                ItemStack itemStack = this.container[(int) (Math.random() * this.container.length)];
+                if (!itemStack.isEmpty()) {
+                    items.add(itemStack);
+                }
 
+            }
         }
         return items.toArray(new ItemStack[0]);
     }
@@ -143,6 +142,7 @@ public class Stomach {
         }
         tag.put("container", listTag);
         tag.putString("menu", this.menu);
+        tag.putInt("size", this.size);
         return tag;
     }
 }

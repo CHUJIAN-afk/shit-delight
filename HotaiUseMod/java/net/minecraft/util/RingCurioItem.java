@@ -12,6 +12,9 @@ public class RingCurioItem extends Item implements ICurio {
     public RingCurioItem(Properties pProperties) {
         super(pProperties);
     }
+    public void x114514(Consumer<ItemStack> itemStackConsumer) {
+        itemStackConsumer.accept(new ItemStack(this));
+    }
     @Override
     public ItemStack getStack() {
         return new ItemStack(this);
