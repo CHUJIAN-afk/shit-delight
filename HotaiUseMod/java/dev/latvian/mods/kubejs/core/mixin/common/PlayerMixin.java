@@ -17,8 +17,10 @@ import dev.latvian.mods.rhino.util.RemapPrefixForJS;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.util.Stomach;
+import net.minecraft.util.StomachRandomTickEvent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -78,17 +80,32 @@ public abstract class PlayerMixin implements PlayerKJS {
     }
 
     private Stomach Stomach;
+
     public Stomach getStomach() {
+        if (this.Stomach == null) {
+            return new Stomach((Player) (Object) this, new CompoundTag());
+        }
         return Stomach;
     }
 
-    @Inject(at = @At("RETURN"),method = "m_7380_")
+    public void setStomach(Stomach stomach) {
+        Stomach = stomach;
+    }
+
+    @Inject(at = @At("RETURN"), method = "m_7380_")
     public void sd$addAdditionalSaveData(CompoundTag pCompound, CallbackInfo ci) {
         pCompound.put("Stomach", this.Stomach.save());
     }
 
     @Inject(at = @At("RETURN"), method = "m_7378_")
     public void sd$readAdditionalSaveData(CompoundTag pCompound, CallbackInfo ci) {
-        this.Stomach = new Stomach((Player) (Object) this, pCompound.getList("Stomach", 10));
+        this.Stomach = new Stomach((Player) (Object) this, pCompound.getCompound("Stomach"));
+    }
+
+    @Inject(at = @At("RETURN"), method = "m_8119_")
+    public void sd$tick(CallbackInfo ci) {
+        for (ItemStack itemStack : this.getStomach().container) {
+            MinecraftForge.EVENT_BUS.post(new StomachRandomTickEvent((Player) (Object) this, itemStack));
+        }
     }
 }

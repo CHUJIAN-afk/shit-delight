@@ -17,6 +17,7 @@ import java.util.function.Supplier;
 public class StomachMenu extends AbstractContainerMenu {
 	public static final DeferredRegister<MenuType<?>> MENU = DeferredRegister.create(ForgeRegistries.MENU_TYPES, "shit_delight");
 
+	//public static final Supplier<MenuType<StomachMenu>> STOMACH_MENU_3x3 = MENU.register("stomach_menu_3x3", () -> new MenuType<>(StomachMenu::StomachMenu_3x3, FeatureFlags.DEFAULT_FLAGS));
 	public static final Supplier<MenuType<StomachMenu>> STOMACH_MENU_3x3 = MENU.register("stomach_menu_3x3", () -> new MenuType<>(StomachMenu::StomachMenu_3x3, FeatureFlags.DEFAULT_FLAGS));
 	public static final Supplier<MenuType<StomachMenu>> STOMACH_MENU_9x2 = MENU.register("stomach_menu_9x2", () -> new MenuType<>(StomachMenu::StomachMenu_9x2, FeatureFlags.DEFAULT_FLAGS));
 	public static final Supplier<MenuType<StomachMenu>> STOMACH_MENU_9x3 = MENU.register("stomach_menu_9x3", () -> new MenuType<>(StomachMenu::StomachMenu_9x3, FeatureFlags.DEFAULT_FLAGS));

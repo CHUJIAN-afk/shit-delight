@@ -71,3 +71,7 @@ $ForgeRegistries.ATTRIBUTES.forEach(v=>{
 })
 console.log(printf)
 }
+let $Stomach = Java.loadClass("net.minecraft.util.Stomach")
+NetworkEvents.dataReceived('update', e => {
+    Client.player.setStomach(new $Stomach(Client.player, e.data.Stomach))
+})

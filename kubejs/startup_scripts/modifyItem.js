@@ -51,23 +51,26 @@ ItemEvents.modification(event => {
       event.modify(Item.of(id), item => {
         item.setItemBuilder(
           new $BasicItemJS$Builder(id).use((l, p, h) => {
+            return l.isClientSide() && p.stomach.addStomachItem($ItemStack.EMPTY)
             if(l.isClientSide())return true
-            let canuse = true
-            let items = []
-            let index = -1
-            p.persistentData.StomachItem.forEach(tag => {
-              items.push($ItemStack.of(tag))
-            })
+            return p.stomach.addStomachItem($ItemStack.EMPTY)
+            // if(l.isClientSide())return true
+            // let canuse = true
+            // let items = []
+            // let index = -1
+            // p.persistentData.StomachItem.forEach(tag => {
+            //   items.push($ItemStack.of(tag))
+            // })
           
-            for (let i = items.length; i >= 0; i--) {
-              if (items[i] == Item.empty) {
-                index = i
-              }
-            }
-            if (index == -1) {
-              canuse = false
-            }
-            return canuse
+            // for (let i = items.length; i >= 0; i--) {
+            //   if (items[i] == Item.empty) {
+            //     index = i
+            //   }
+            // }
+            // if (index == -1) {
+            //   canuse = false
+            // }
+            // return canuse
           
           }))
       })

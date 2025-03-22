@@ -132,13 +132,39 @@ if (true) {//测试使用
   let player = Utils.server.players[0]
   // player.setContainer([Item.of("diamond"), Item.of("diamond"), Item.of("diamond", 50)])
   let stomach = player.stomach
-  stomach.setStomachItems([Item.of("diamond"), Item.of("diamond"), Item.of("diamond", 50)])
-  Client.tell(stomach.setSize(9))
-  stomach.removeStomachItem(1)
-  stomach.replaceStomachItem(0,Item.of('acacia_leaves'))
-  Client.tell(stomach.addStomachItem(Item.of('acacia_boat')))
-  Client.tell(stomach.findFirstItem(Item.of('acacia_boat')))
-  Client.tell(stomach.findItems(Item.of("diamond")))
-  Client.tell(stomach.getStomachItems())
+  //使用itemstack[]修改StomachItems,长度记得和size一致(虽然应该这东西应该不会用那么多)
+  // stomach.setStomachItems([Item.of("diamond"), Item.of("diamond"), Item.of("diamond", 50)])
 
+  //尺寸可以往大设置,但是不可往小设置,请使用9 18 27 36 45 54
+  Client.tell(stomach.setSize(9))
+
+  //移除物品
+  // stomach.removeStomachItem(1)
+
+  //替换物品
+  // stomach.replaceStomachItem(0,Item.of('acacia_leaves'))
+
+  //添加物品
+  // Client.tell(stomach.addStomachItem(Item.of('acacia_boat')))
+
+  //寻找物品槽位
+  // Client.tell(stomach.findFirstItem(Item.of('acacia_boat')))
+  // Client.tell(stomach.findItems(Item.of("diamond")))
+  
+  //打开StomachMenu,参数为标题名称
+  stomach.openMenu('111')
+  stomach.player.sendData('update',{Stomach:stomach.save()})
 }
+//现在是每tick随机寻找3个物品(可重复),若有需要可再改
+let $StomachRandomTickEvent = Java.loadClass('net.minecraft.util.StomachRandomTickEvent')
+NativeEvents.onEvent($StomachRandomTickEvent,e=>{
+  // if(e.player.age%200!=0)return
+  // if(e.itemStack == Item.of('acacia_boat'))
+  //   Client.tell(e.itemStack)
+})
+
+CustomEvent.StomachGuiClose(event => {
+  let { player, container, stage } = event
+  Client.tell(container.container.containerSize())
+  player.stomach.setStomachItems(container.container.allItems)
+})

@@ -22,3 +22,4 @@ log4j2.xml
 mods/.index
 *ModernUI*
 mods/IBEEditor-1.20-2.2.8-forge.jar
+hotai/META-INF
