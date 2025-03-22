@@ -17,7 +17,7 @@ PlayerEvents.tick(event => {
         if (30000 < 消化进度) {
             消化进度 -= 30000
             消化进度 = Math.floor(消化进度)
-            let item = player.container
+            let item = player.stomach.container
             //先拉出所有屎再消化其他食物
             item.forEach(shit => {
                 if (shit.id == "kubejs:shit") {

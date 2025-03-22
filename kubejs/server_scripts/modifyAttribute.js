@@ -120,7 +120,7 @@ function 玩家属性值计算(
   let 腐嗅噬心总值 = 0
   let 潜渊共鸣总值 = 0
   let 腌痕铠胄总值 = 0
-  player.container.forEach((item) => {
+  player.stomach.container.forEach((item) => {
     //食物属性值计算
     let 均分系数 = 0;
     const 标签 = ["XKHX", "JHXY", "SLMY", "XHRL", "JFZS", "PSZG"];
@@ -270,10 +270,10 @@ function 玩家属性修改(
 //在重生和登录时使用，为玩家提供可以被加成的基础数值
 let 属性修改 = false
 PlayerEvents.respawned(event => {
-  初始化属性(event)
+  初始化属性(event.player)
 })
 PlayerEvents.loggedIn(event => {
-  初始化属性(event)
+  初始化属性(event.player)
 })
 const 初始化属性表 = [
   "minecraft:generic.attack_knockback",
