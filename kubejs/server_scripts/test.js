@@ -53,23 +53,27 @@ NetworkEvents.dataReceived('openStomachMenu', event => {
   //   9,
   //   event.player.persistentData.getList('StomachItem', 10)
   // )
-  let items = []
-  console.info(event.player.persistentData.StomachItem)
-  event.player.persistentData.StomachItem.forEach(tag => {
-    console.info(tag)
-    items.push($ItemStack.of(tag))
-  })
 
-  $NetworkHooks.openScreen(
-    event.player,
-    new $SimpleMenuProvider(
-      (containerId, playerInventory, player) =>
-        StomachMenu[event.player.persistentData.StomachType](containerId, playerInventory, new $SimpleContainer(
-          items
-        )),
-      Component.of('xxx')
-    )
-  )
+  event.player.stomach.setSize(9)
+  event.player.stomach.openMenu("xxx")
+
+  // let items = []
+  // console.info(event.player.persistentData.StomachItem)
+  // event.player.persistentData.StomachItem.forEach(tag => {
+  //   console.info(tag)
+  //   items.push($ItemStack.of(tag))
+  // })
+
+  // $NetworkHooks.openScreen(
+  //   event.player,
+  //   new $SimpleMenuProvider(
+  //     (containerId, playerInventory, player) =>
+  //       StomachMenu[event.player.persistentData.StomachType](containerId, playerInventory, new $SimpleContainer(
+  //         items
+  //       )),
+  //     Component.of('xxx')
+  //   )
+  // )
 })
 
 // 属性应用
@@ -88,11 +92,18 @@ CustomEvent.AttributeApply(event => {
 // 又被折磨了2小时……
 CustomEvent.StomachGuiClose(event => {
   let { player, container, stage } = event
-  let list = []
-  for (let i = 0; i < container.size; i++) {
-    list.push(container.container.getItem(i))
+  for (let i = 0; i <player.stomach.size; i++) {
+    player.stomach.replaceStomachItem(i,container.container.getItem(i))
   }
-  player.persistentData.StomachItem = list
+  //进行客户端通信同步数据
+  stomach.player.sendData('update',{Stomach:stomach.save()})
+// CustomEvent.StomachGuiClose(event => {
+//   let { player, container, stage } = event
+//   let list = []
+//   for (let i = 0; i < container.size; i++) {
+//     list.push(container.container.getItem(i))
+//   }
+//   player.persistentData.StomachItem = list
 })
 
 // 食用物品后往胃里存储
@@ -125,7 +136,7 @@ ItemEvents.foodEaten(event => {
   player.persistentData.StomachItem = items
 })
 
-if (true) {//测试使用
+if (false) {//测试使用
   /**
    * @type {Internal.Player}
    */
@@ -139,32 +150,26 @@ if (true) {//测试使用
   Client.tell(stomach.setSize(9))
 
   //移除物品
-  // stomach.removeStomachItem(1)
+  stomach.removeStomachItem(1)
 
   //替换物品
-  // stomach.replaceStomachItem(0,Item.of('acacia_leaves'))
+  stomach.replaceStomachItem(0,Item.of('acacia_leaves'))
 
   //添加物品
-  // Client.tell(stomach.addStomachItem(Item.of('acacia_boat')))
+  Client.tell(stomach.addStomachItem(Item.of('acacia_boat')))
 
   //寻找物品槽位
-  // Client.tell(stomach.findFirstItem(Item.of('acacia_boat')))
-  // Client.tell(stomach.findItems(Item.of("diamond")))
-  
+  Client.tell(stomach.findFirstItem(Item.of('acacia_boat')))
+  Client.tell(stomach.findItems(Item.of("diamond")))
+
   //打开StomachMenu,参数为标题名称
   stomach.openMenu('111')
-  stomach.player.sendData('update',{Stomach:stomach.save()})
 }
 //现在是每tick随机寻找3个物品(可重复),若有需要可再改
-let $StomachRandomTickEvent = Java.loadClass('net.minecraft.util.StomachRandomTickEvent')
-NativeEvents.onEvent($StomachRandomTickEvent,e=>{
-  // if(e.player.age%200!=0)return
-  // if(e.itemStack == Item.of('acacia_boat'))
-  //   Client.tell(e.itemStack)
-})
-
-CustomEvent.StomachGuiClose(event => {
-  let { player, container, stage } = event
-  Client.tell(container.container.containerSize())
-  player.stomach.setStomachItems(container.container.allItems)
-})
+// let $StomachRandomTickEvent = Java.loadClass('net.minecraft.util.StomachRandomTickEvent')
+// let count = 0
+// NativeEvents.onEvent($StomachRandomTickEvent,e=>{
+//   if(e.player.age%20!=0||e.player.level.isClientSide())return
+//     Client.tell(e.itemStack)
+//     Client.tell(count++)
+// })
