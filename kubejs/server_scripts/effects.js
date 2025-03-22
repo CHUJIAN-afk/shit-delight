@@ -5,7 +5,7 @@ PlayerEvents.tick(event => {
         let 持久化数据 = player.persistentData;
         let 餮魇归一总值 = 持久化数据.getString("餮魇归一");
         let 胃中效果最大数量 = Math.floor(餮魇归一总值 / 10) + 2
-        let item = player.enderChestInventory.getAllItems()
+        let item = player.stomach.container
         item.forEach((item) => {
             let foodProps = item.getFoodProperties(player)
             if (!foodProps) return
