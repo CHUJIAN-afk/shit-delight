@@ -24,7 +24,7 @@ EntityEvents.spawned(event => {
   let { random } = Utils
   // 测试的时候没写这行跳出
   // 新建世界的时候在我副手塞了把下界合金小刀，给我整笑了
-  if (entity.player) return
+  if (entity.player || !entity.monster) return
   // 主世界
   if (dimension == "minecraft:overworld") {
     if (random.nextFloat() < 0.1) {
