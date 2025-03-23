@@ -147,12 +147,12 @@ function 玩家属性值计算(
       { 标签: 'brewinandchewin:fermented_drinks', 属性值: 莓酿离歌总值, 系数: 1 }
     ];
     属性配置表.forEach(配置 => {
-      if (配置.标签) {
+      if (item.hasTag(配置.标签)) {
         配置.属性值 += Math.max(Math.floor(食物营养总价值 * 配置.系数), 1)
       }
     })
   })
-  //写入玩家持久化数据
+  //将总值写入玩家持久化数据，在客户端计算时不需要
   let 持久化数据 = player.persistentData;
   let 属性表 = [
     { 属性值: 莓酿离歌总值, 属性名: '莓酿离歌' },
