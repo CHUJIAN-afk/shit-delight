@@ -132,25 +132,48 @@ function 玩家属性值计算(
     let 饥饿值 = 食物.getNutrition()
     let 饱和度 = 食物.getSaturationModifier()
     let 食物营养总价值 = Math.floor((饥饿值 + 饱和度 * 0.5) / Math.max(均分系数, 1) + 1);
-    let 属性配置表 = [
-      { 标签: 'XKHX', 属性值: 虚空遗尘总值, 系数: Math.exp(饥饿值 * 饱和度 * 0.05) },
-      { 标签: 'JHXY', 属性值: 匠魂飨宴总值, 系数: ((饥饿值 / (饱和度 + 1)) + Math.sqrt(饥饿值 + 饱和度)) / 9 },
-      { 标签: 'SLMY', 属性值: 森灵秘语总值, 系数: Math.log(饥饿值 + 1) * (饱和度 + 0.3) / 1.5 },
-      { 标签: 'XHRL', 属性值: 星火熔炉总值, 系数: (Math.pow(饥饿值, 1.2) + Math.pow(饱和度, 1.2)) / 10 },
-      { 标签: 'JFZS', 属性值: 风之轻语总值, 系数: 饥饿值 / (Math.abs(饱和度) + 0.5) / 3 },
-      { 标签: 'PSZG', 属性值: 磐石之根总值, 系数: (饥饿值 - 饱和度) / 5 },
-      { 标签: 'TYGY', 属性值: 餮魇归一总值, 系数: 1 },
-      { 标签: 'shit', 属性值: 腐嗅噬心总值, 系数: 1 },
-      { 标签: 'FSNJ', 属性值: 潜渊共鸣总值, 系数: 1 },
-      { 标签: 'YHKZ', 属性值: 腌痕铠胄总值, 系数: 1 },
-      { 标签: 'GXZM', 属性值: 果香织梦总值, 系数: 1 },
-      { 标签: 'brewinandchewin:fermented_drinks', 属性值: 莓酿离歌总值, 系数: 1 }
-    ];
-    属性配置表.forEach(配置 => {
-      if (item.hasTag(配置.标签)) {
-        配置.属性值 += Math.max(Math.floor(食物营养总价值 * 配置.系数), 1)
-      }
-    })
+    if (item.hasTag("GXZM")) {
+      果香织梦总值 += 食物营养总价值
+    }
+    if (item.hasTag("brewinandchewin:fermented_drinks")) {
+      莓酿离歌总值 += 食物营养总价值
+    }
+    if (item.hasTag("TYGY")) {
+      餮魇归一总值 += 食物营养总价值
+    }
+    if (item.hasTag("shit")) {
+      腐嗅噬心总值 += 食物营养总价值
+    }
+    if (item.hasTag("FSNJ")) {
+      潜渊共鸣总值 += 食物营养总价值
+    }
+    if (item.hasTag("YHKZ")) {
+      腌痕铠胄总值 += 食物营养总价值
+    }
+    if (item.hasTag("PSZG")) {
+      let 磐石之根系数 = (饥饿值 - 饱和度) / 5
+      磐石之根总值 += Math.max(Math.floor(食物营养总价值 * 磐石之根系数), 1)
+    }
+    if (item.hasTag("JFZS")) {
+      let 风之轻语系数 = 饥饿值 / (Math.abs(饱和度) + 0.5) / 3
+      风之轻语总值 += Math.max(Math.floor(食物营养总价值 * 风之轻语系数), 1)
+    }
+    if (item.hasTag("XHRL")) {
+      let 星火熔炉系数 = (Math.pow(饥饿值, 1.2) + Math.pow(饱和度, 1.2)) / 10
+      星火熔炉总值 += Math.max(Math.floor(食物营养总价值 * 星火熔炉系数), 1)
+    }
+    if (item.hasTag("SLMY")) {
+      let 森灵秘语系数 = Math.log(饥饿值 + 1) * (饱和度 + 0.3) / 1.5
+      森灵秘语总值 += Math.max(Math.floor(食物营养总价值 * 森灵秘语系数), 1)
+    }
+    if (item.hasTag("JHXY")) {
+      let 匠魂飨宴系数 = ((饥饿值 / (饱和度 + 1)) + Math.sqrt(饥饿值 + 饱和度)) / 9
+      匠魂飨宴总值 += Math.max(Math.floor(食物营养总价值 * 匠魂飨宴系数), 1)
+    }
+    if (item.hasTag("XKHX")) {
+      let 虚空遗尘系数 = Math.exp(饥饿值 * 饱和度 * 0.05)
+      虚空遗尘总值 += Math.max(Math.floor(食物营养总价值 * 虚空遗尘系数), 1)
+    }
   })
   //将总值写入玩家持久化数据，在客户端计算时不需要
   let 持久化数据 = player.persistentData;
