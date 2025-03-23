@@ -1,5 +1,8 @@
 // 畏惧了……
-
+PlayerEvents.inventoryChanged(event=>{
+  玩家属性值计算(event.player)
+  玩家属性修改(event.player)
+})
 // 允许使用的物品（白名单）
 let allowUseItem = [
   "farmersdelight:diamond_knife",
@@ -36,7 +39,7 @@ let allowUseItem = [
 PlayerEvents.tick(event => {
   let { player, player: { mainHandItem, offHandItem } } = event
   let 持久化数据 = player.persistentData;
-  let 果香织梦总值 = 持久化数据.getString("果香织梦");
+  let 果香织梦总值 = 持久化数据.getFloat("果香织梦");
   if (果香织梦总值 && !(player.age % 100)) {
     //恢复饥饿值饱和度
     player.addFood(
@@ -50,8 +53,8 @@ PlayerEvents.tick(event => {
     if (offHandItem.damageValue && allowUseItem.includes(offHandItem.id)) {
       offHandItem.damageValue -= 果香织梦总值
     }
-    let 消化进度 = 持久化数据.getString("消化进度");
-    持久化数据.putString("消化进度", 消化进度 + Math.floor(果香织梦总值 * 0.5))
+    let 消化进度 = 持久化数据.getFloat("消化进度");
+    持久化数据.putFloat("消化进度", 消化进度 + Math.floor(果香织梦总值 * 0.5))
   }
 })
 
@@ -63,7 +66,7 @@ EntityEvents.hurt(event => {
   let attacker = source.actual
   if (attacker && attacker.isPlayer()) {
     let 持久化数据 = attacker.persistentData;
-    let 潜渊共鸣总值 = 持久化数据.getString("潜渊共鸣");
+    let 潜渊共鸣总值 = 持久化数据.getFloat("潜渊共鸣");
     if (!潜渊共鸣总值) return
     let damage = oldDamage * 潜渊共鸣总值 * 0.05//计算伤害
     let range = Math.floor(潜渊共鸣总值 * 0.05) + 1//计算范围
@@ -74,12 +77,12 @@ EntityEvents.hurt(event => {
         if (entity.isPlayer() || !entity.isLiving()) return
         entity.invulnerableTime = 0
         entity.attack(damage)
-        let 消化进度 = 持久化数据.getString("消化进度");
-        持久化数据.putString("消化进度", 消化进度 + Math.floor(damage))
+        let 消化进度 = 持久化数据.getFloat("消化进度");
+        持久化数据.putFloat("消化进度", 消化进度 + Math.floor(damage))
         server.scheduleInTicks(4, () => {
           entity.invulnerableTime = 0
           entity.attack(damage)
-          持久化数据.putString("消化进度", 消化进度 + Math.floor(damage))
+          持久化数据.putFloat("消化进度", 消化进度 + Math.floor(damage))
         })
       })
     })
@@ -92,15 +95,16 @@ EntityEvents.hurt(event => {
   let attacker = source.actual
   if (entity && entity.isPlayer()) {
     let 持久化数据 = entity.persistentData;
-    let 腌痕铠胄总值 = 持久化数据.getString("腌痕铠胄");
+    let 腌痕铠胄总值 = 持久化数据.getFloat("腌痕铠胄");
     if (!腌痕铠胄总值) return
     if (!attacker || !attacker.isLiving()) return
     entity.invulnerableTime = 0
     attacker.attack(oldDamage * entity.getAttributeValue("minecraft:generic.armor") * 腌痕铠胄总值 * 0.003)
-    let 消化进度 = 持久化数据.getString("消化进度");
-    持久化数据.putString("消化进度", 消化进度 + Math.floor(oldDamage * entity.getAttributeValue("minecraft:generic.armor") * 腌痕铠胄总值 * 0.003))
+    let 消化进度 = 持久化数据.getFloat("消化进度");
+    持久化数据.putFloat("消化进度", 消化进度 + Math.floor(oldDamage * entity.getAttributeValue("minecraft:generic.armor") * 腌痕铠胄总值 * 0.003))
   }
 })
+
 
 //属性计算部分
 function 玩家属性值计算(
@@ -192,9 +196,10 @@ function 玩家属性值计算(
     { 属性值: 腌痕铠胄总值, 属性名: '腌痕铠胄' }
   ];
   属性表.forEach(配置 => {
-    持久化数据.putString(配置.属性名, 配置.属性值);
+    持久化数据.putFloat(配置.属性名, 配置.属性值);
   })
 }
+
 
 //属性修改部分
 function 玩家属性修改(
@@ -203,14 +208,14 @@ function 玩家属性修改(
    */
   player) {
   let 持久化数据 = player.persistentData;
-  let 莓酿离歌总值 = 持久化数据.getString("莓酿离歌");
-  let 磐石之根总值 = 持久化数据.getString("磐石之根");
-  let 风之轻语总值 = 持久化数据.getString("风之轻语");
-  let 星火熔炉总值 = 持久化数据.getString("星火熔炉");
-  let 森灵秘语总值 = 持久化数据.getString("森灵秘语");
-  let 匠魂飨宴总值 = 持久化数据.getString("匠魂飨宴");
-  let 虚空遗尘总值 = 持久化数据.getString("虚空遗尘");
-  let 腌痕铠胄总值 = 持久化数据.getString("腌痕铠胄");
+  let 莓酿离歌总值 = 持久化数据.getFloat("莓酿离歌");
+  let 磐石之根总值 = 持久化数据.getFloat("磐石之根");
+  let 风之轻语总值 = 持久化数据.getFloat("风之轻语");
+  let 星火熔炉总值 = 持久化数据.getFloat("星火熔炉");
+  let 森灵秘语总值 = 持久化数据.getFloat("森灵秘语");
+  let 匠魂飨宴总值 = 持久化数据.getFloat("匠魂飨宴");
+  let 虚空遗尘总值 = 持久化数据.getFloat("虚空遗尘");
+  let 腌痕铠胄总值 = 持久化数据.getFloat("腌痕铠胄");
   //根据系数进行计算数值
   let 生命类属性 = 磐石之根总值 * 0.3 + 风之轻语总值 * 0.5 + 星火熔炉总值 * -0.4 + 森灵秘语总值 * 1.4 + 匠魂飨宴总值 * 0.2 + 虚空遗尘总值 * 0.6;
   let 防御类属性 = 磐石之根总值 * 1.4 + 风之轻语总值 * -0.3 + 星火熔炉总值 * -0.4 + 森灵秘语总值 * 0.2 + 匠魂飨宴总值 * 0 + 虚空遗尘总值 * 0.2;
@@ -236,14 +241,11 @@ function 玩家属性修改(
       "minecraft:generic.armor",
       "minecraft:generic.armor_toughness",
       "minecraft:generic.knockback_resistance",
-      "attribute.name.generic.armor_toughness",
-      "forge.name_tag_distance"
     ],
     速度属性类: [
       "minecraft:generic.movement_speed",
       "minecraft:generic.flying_speed",
       "forge:swim_speed",
-      "forge.step_height",
       "attributeslib:arrow_velocity",
       "attributeslib:dodge_chance",
       "attributeslib:draw_speed"
@@ -254,19 +256,18 @@ function 玩家属性修改(
       "attributeslib:crit_chance",
       "attributeslib:crit_damage",
       "attributeslib:armor_pierce",
-      "attribute.name.generic.attack_knockback",
       "attributeslib:prot_pierce",
       "attributeslib:prot_shred"
     ],
     恢复属性类: [
       "attributeslib:overheal",
       "attributeslib:healing_received",
-      "zombie.spawn_reinforcements",
+      //"zombie.spawn_reinforcements",
       "minecraft:generic.luck"
     ],
     采掘属性类: [
       "attributeslib:mining_speed",
-      "attribute.name.generic.luck",
+      "minecraft:generic.luck",
       "attributeslib:experience_gained"
     ]
   };
