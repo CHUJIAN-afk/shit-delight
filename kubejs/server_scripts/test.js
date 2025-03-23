@@ -96,7 +96,7 @@ CustomEvent.StomachGuiClose(event => {
     player.stomach.replaceStomachItem(i,container.container.getItem(i))
   }
   //进行客户端通信同步数据
-  stomach.player.sendData('update',{Stomach:stomach.save()})
+  player.sendData('update',{Stomach:player.stomach.save()})
 // CustomEvent.StomachGuiClose(event => {
 //   let { player, container, stage } = event
 //   let list = []
